@@ -1,0 +1,4 @@
+module QtQuick.Timeline
+plugin qtquicktimelineplugin
+classname QtQuickTimelinePlugin
+designersupported
