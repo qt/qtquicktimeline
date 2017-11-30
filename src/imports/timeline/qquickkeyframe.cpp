@@ -211,9 +211,9 @@ QVariant QQuickKeyframes::evaluate(qreal frame) const
 
 void QQuickKeyframes::setProperty(qreal frame)
 {
-    QQmlProperty property(target(), property());
+    QQmlProperty qmlProperty(target(), property());
 
-    property.write(evaluate(frame));
+    qmlProperty.write(evaluate(frame));
 }
 
 void QQuickKeyframes::init()
