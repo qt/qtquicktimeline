@@ -173,6 +173,10 @@ void QQuickKeyframes::setTargetObject(QObject *o)
     if (d->target == o)
         return;
     d->target = o;
+
+    if (!property().isEmpty())
+        init();
+
     emit targetChanged();
 }
 
@@ -188,6 +192,10 @@ void QQuickKeyframes::setProperty(const QString &n)
     if (d->propertyName == n)
         return;
     d->propertyName = n;
+
+    if (target())
+        init();
+
     emit propertyChanged();
 }
 
@@ -198,15 +206,21 @@ QVariant QQuickKeyframes::evaluate(qreal frame) const
     if (d->sortedKeyframes.isEmpty())
         return QVariant();
 
-    QQuickKeyframe *lastFrame = nullptr;
+    static QQuickKeyframe dummy;
+    QQuickKeyframeMutator *timeline = qobject_cast<QQuickKeyframeMutator*>(parent());
+    if (timeline)
+        dummy.setFrame(timeline->startFrame() - 0.0001);
+    dummy.setValue(d->originalValue);
+
+     QQuickKeyframe *lastFrame = &dummy;
 
     for (auto keyFrame :  qAsConst(d->sortedKeyframes)) {
-        if (frame <= keyFrame->frame())
+        if (qFuzzyCompare(frame, keyFrame->frame()) || frame < keyFrame->frame())
             return keyFrame->evaluate(lastFrame, frame, QQmlProperty(target(), property()).property().userType());
         lastFrame = keyFrame;
     }
 
-    return QVariant();
+    return lastFrame->value();
 }
 
 void QQuickKeyframes::setProperty(qreal frame)
