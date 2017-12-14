@@ -225,15 +225,18 @@ QVariant QQuickKeyframes::evaluate(qreal frame) const
 
 void QQuickKeyframes::setProperty(qreal frame)
 {
-    QQmlProperty qmlProperty(target(), property());
+    if (target()) {
+        QQmlProperty qmlProperty(target(), property());
 
-    qmlProperty.write(evaluate(frame));
+        qmlProperty.write(evaluate(frame));
+    }
 }
 
 void QQuickKeyframes::init()
 {
     Q_D(QQuickKeyframes);
-    d->originalValue = QQmlProperty::read(target(), property());
+    if (target())
+        d->originalValue = QQmlProperty::read(target(), property());
 }
 
 void QQuickKeyframes::resetDefaultValue()
