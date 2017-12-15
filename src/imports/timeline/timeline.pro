@@ -11,7 +11,8 @@ DEFINES += QT_NO_CAST_TO_ASCII QT_NO_CAST_FROM_ASCII
 include(timeline.pri)
 
 DISTFILES += \
-    qmldir
+    qmldir \
+    plugins.qmltypes
 
 SOURCES += \
     $$PWD/qtquicktimelineplugin.cpp
