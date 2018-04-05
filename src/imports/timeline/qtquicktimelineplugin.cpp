@@ -18,7 +18,7 @@
 
 #include <QtQml/qqmlextensionplugin.h>
 
-#include "qquickkeyframemutator_p.h"
+#include "qquicktimeline_p.h"
 #include "qquickkeyframe_p.h"
 
 static inline void initResources()
@@ -49,7 +49,7 @@ QtQuickTimelinePlugin::QtQuickTimelinePlugin(QObject *parent) : QQmlExtensionPlu
 
 void QtQuickTimelinePlugin::registerTypes(const char *uri)
 {
-    qmlRegisterType<QQuickKeyframeMutator>(uri, 1, 0, "KeyframeMutator");
+    qmlRegisterType<QQuickTimeline>(uri, 1, 0, "Timeline");
     qmlRegisterType<QQuickKeyframe>(uri, 1, 0, "Keyframe");
     qmlRegisterType<QQuickKeyframes>(uri, 1, 0, "Keyframes");
 }

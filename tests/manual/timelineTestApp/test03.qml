@@ -22,8 +22,8 @@ import QtQuick.Timeline 1.0
 Item {
     id: item1
 
-    KeyframeMutator {
-        id: mutator
+    Timeline {
+        id: timeline
         enabled: true
 
         startFrame: 0

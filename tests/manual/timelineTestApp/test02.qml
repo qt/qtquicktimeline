@@ -23,7 +23,7 @@ Item {
     PropertyAnimation {
         running: true
         duration: 1000
-        target: mutator
+        target: timeline
         property: "currentFrame"
         from: 0
         to: 1000
@@ -75,8 +75,8 @@ Item {
         color: "#242424"
     }
 
-    KeyframeMutator {
-        id: mutator
+    Timeline {
+        id: timeline
         enabled: true
 
         startFrame: 0

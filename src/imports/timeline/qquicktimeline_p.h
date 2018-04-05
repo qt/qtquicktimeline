@@ -16,8 +16,8 @@
 **
 ****************************************************************************/
 
-#ifndef QQUICKKEYFRAMEMUTATOR_P_H
-#define QQUICKKEYFRAMEMUTATOR_P_H
+#ifndef QQUICKTIMELINE_P_H
+#define QQUICKTIMELINE_P_H
 
 //
 //  W A R N I N G
@@ -36,12 +36,12 @@
 
 QT_BEGIN_NAMESPACE
 
-class QQuickKeyframeMutatorPrivate;
+class QQuickTimelinePrivate;
 
-class QQuickKeyframeMutator : public QObject, public QQmlParserStatus
+class QQuickTimeline : public QObject, public QQmlParserStatus
 {
     Q_OBJECT
-    Q_DECLARE_PRIVATE(QQuickKeyframeMutator)
+    Q_DECLARE_PRIVATE(QQuickTimeline)
 
     Q_INTERFACES(QQmlParserStatus)
 
@@ -54,7 +54,7 @@ class QQuickKeyframeMutator : public QObject, public QQmlParserStatus
     Q_CLASSINFO("DefaultProperty", "keyframes")
 
 public:
-    explicit QQuickKeyframeMutator(QObject *parent = nullptr);
+    explicit QQuickTimeline(QObject *parent = nullptr);
 
     QQmlListProperty<QQuickKeyframes> keyframes();
 
@@ -86,4 +86,4 @@ Q_SIGNALS:
 
 QT_END_NAMESPACE
 
-#endif // QQUICKKEYFRAMEMUTATOR_P_H
+#endif // QQUICKTIMELINE_P_H

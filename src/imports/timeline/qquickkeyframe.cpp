@@ -18,7 +18,7 @@
 
 #include "qquickkeyframe_p.h"
 
-#include "qquickkeyframemutator_p.h"
+#include "qquicktimeline_p.h"
 
 #include <QtCore/QVariantAnimation>
 #include <QtCore/qmath.h>
@@ -207,7 +207,7 @@ QVariant QQuickKeyframes::evaluate(qreal frame) const
         return QVariant();
 
     static QQuickKeyframe dummy;
-    QQuickKeyframeMutator *timeline = qobject_cast<QQuickKeyframeMutator*>(parent());
+    QQuickTimeline *timeline = qobject_cast<QQuickTimeline*>(parent());
     if (timeline)
         dummy.setFrame(timeline->startFrame() - 0.0001);
     dummy.setValue(d->originalValue);
@@ -251,9 +251,9 @@ void QQuickKeyframes::reset()
     if (!d->componentComplete)
         return;
 
-    QQuickKeyframeMutator *mutator = qobject_cast<QQuickKeyframeMutator*>(parent());
-    if (mutator)
-        setProperty(mutator->currentFrame());
+    auto *timeline = qobject_cast<QQuickTimeline*>(parent());
+    if (timeline)
+        setProperty(timeline->currentFrame());
 }
 
 void QQuickKeyframes::setupKeyframes()

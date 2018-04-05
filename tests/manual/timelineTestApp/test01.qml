@@ -26,7 +26,7 @@ Item {
         color: "blue"
         MouseArea {
             anchors.fill: parent
-            onClicked: mutator.enabled = !mutator.enabled
+            onClicked: timeline.enabled = !timeline.enabled
         }
     }
 
@@ -43,7 +43,7 @@ Item {
 
     NumberAnimation {
         id: animation
-        target: mutator
+        target: timeline
         property: "currentFrame"
         easing.type: Easing.InOutQuad
         duration: 2000
@@ -56,8 +56,8 @@ Item {
         width: 480
         height: 480
 
-        KeyframeMutator {
-            id: mutator
+        Timeline {
+            id: timeline
 
             startFrame: 0
             endFrame: 100

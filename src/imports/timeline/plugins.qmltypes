@@ -19,10 +19,10 @@ Module {
         Signal { name: "easingCurveChanged" }
     }
     Component {
-        name: "QQuickKeyframeMutator"
+        name: "QQuickTimeline"
         defaultProperty: "keyframes"
         prototype: "QObject"
-        exports: ["QtQuick.Timeline/KeyframeMutator 1.0"]
+        exports: ["QtQuick.Timeline/Timeline 1.0"]
         exportMetaObjectRevisions: [0]
         Property { name: "startFrame"; type: "double" }
         Property { name: "endFrame"; type: "double" }

@@ -16,7 +16,7 @@
 **
 ****************************************************************************/
 
-#include "qquickkeyframemutator_p.h"
+#include "qquicktimeline_p.h"
 
 #include <QtCore/qmath.h>
 #include <QtGui/qpainter.h>
@@ -24,11 +24,11 @@
 
 QT_BEGIN_NAMESPACE
 
-class QQuickKeyframeMutatorPrivate : public QObjectPrivate
+class QQuickTimelinePrivate : public QObjectPrivate
 {
-    Q_DECLARE_PUBLIC(QQuickKeyframeMutator)
+    Q_DECLARE_PUBLIC(QQuickTimeline)
 public:
-    QQuickKeyframeMutatorPrivate()
+    QQuickTimelinePrivate()
         : startFrame(0),
           endFrame(0),
           currentFrame(0),
@@ -56,7 +56,7 @@ protected:
     QList<QQuickKeyframes *> keyframes;
 };
 
-void QQuickKeyframeMutatorPrivate::init()
+void QQuickTimelinePrivate::init()
 {
     for (auto keyFrames : keyframes) {
         keyFrames->init();
@@ -64,63 +64,63 @@ void QQuickKeyframeMutatorPrivate::init()
     }
 }
 
-void QQuickKeyframeMutatorPrivate::disable()
+void QQuickTimelinePrivate::disable()
 {
     for (auto keyFrames : keyframes)
         keyFrames->resetDefaultValue();
 }
 
-void QQuickKeyframeMutatorPrivate::append_keyframe(QQmlListProperty<QQuickKeyframes> *list, QQuickKeyframes *a)
+void QQuickTimelinePrivate::append_keyframe(QQmlListProperty<QQuickKeyframes> *list, QQuickKeyframes *a)
 {
-    QQuickKeyframeMutator *q = static_cast<QQuickKeyframeMutator *>(list->object);
+    QQuickTimeline *q = static_cast<QQuickTimeline *>(list->object);
     q->d_func()->keyframes.append(a);
 }
 
-int QQuickKeyframeMutatorPrivate::keyframe_count(QQmlListProperty<QQuickKeyframes> *list)
+int QQuickTimelinePrivate::keyframe_count(QQmlListProperty<QQuickKeyframes> *list)
 {
-    QQuickKeyframeMutator *q = static_cast<QQuickKeyframeMutator *>(list->object);
+    QQuickTimeline *q = static_cast<QQuickTimeline *>(list->object);
     return q->d_func()->keyframes.count();
 }
 
-QQuickKeyframes* QQuickKeyframeMutatorPrivate::keyframe_at(QQmlListProperty<QQuickKeyframes> *list, int pos)
+QQuickKeyframes* QQuickTimelinePrivate::keyframe_at(QQmlListProperty<QQuickKeyframes> *list, int pos)
 {
-    QQuickKeyframeMutator *q = static_cast<QQuickKeyframeMutator *>(list->object);
+    QQuickTimeline *q = static_cast<QQuickTimeline *>(list->object);
     return q->d_func()->keyframes.at(pos);
 }
 
-void QQuickKeyframeMutatorPrivate::clear_keyframes(QQmlListProperty<QQuickKeyframes> *list)
+void QQuickTimelinePrivate::clear_keyframes(QQmlListProperty<QQuickKeyframes> *list)
 {
-    QQuickKeyframeMutator *q = static_cast<QQuickKeyframeMutator *>(list->object);
+    QQuickTimeline *q = static_cast<QQuickTimeline *>(list->object);
     while (q->d_func()->keyframes.count()) {
         QQuickKeyframes *firstKeyframe = q->d_func()->keyframes.at(0);
         q->d_func()->keyframes.removeAll(firstKeyframe);
     }
 }
 
-QQuickKeyframeMutator::QQuickKeyframeMutator(QObject *parent) : QObject(*(new QQuickKeyframeMutatorPrivate), parent)
+QQuickTimeline::QQuickTimeline(QObject *parent) : QObject(*(new QQuickTimelinePrivate), parent)
 {
 
 }
 
-QQmlListProperty<QQuickKeyframes> QQuickKeyframeMutator::keyframes()
+QQmlListProperty<QQuickKeyframes> QQuickTimeline::keyframes()
 {
-    Q_D(QQuickKeyframeMutator);
+    Q_D(QQuickTimeline);
 
-    return QQmlListProperty<QQuickKeyframes>(this, &d->keyframes, QQuickKeyframeMutatorPrivate::append_keyframe,
-                                             QQuickKeyframeMutatorPrivate::keyframe_count,
-                                             QQuickKeyframeMutatorPrivate::keyframe_at,
-                                             QQuickKeyframeMutatorPrivate::clear_keyframes);
+    return QQmlListProperty<QQuickKeyframes>(this, &d->keyframes, QQuickTimelinePrivate::append_keyframe,
+                                             QQuickTimelinePrivate::keyframe_count,
+                                             QQuickTimelinePrivate::keyframe_at,
+                                             QQuickTimelinePrivate::clear_keyframes);
 }
 
-bool QQuickKeyframeMutator::enabled() const
+bool QQuickTimeline::enabled() const
 {
-    Q_D(const QQuickKeyframeMutator);
+    Q_D(const QQuickTimeline);
     return d->enabled;
 }
 
-void QQuickKeyframeMutator::setEnabled(bool b)
+void QQuickTimeline::setEnabled(bool b)
 {
-    Q_D(QQuickKeyframeMutator);
+    Q_D(QQuickTimeline);
     if (d->enabled == b)
         return;
     d->enabled = b;
@@ -135,45 +135,45 @@ void QQuickKeyframeMutator::setEnabled(bool b)
     emit enabledChanged();
 }
 
-qreal QQuickKeyframeMutator::startFrame() const
+qreal QQuickTimeline::startFrame() const
 {
-    Q_D(const QQuickKeyframeMutator);
+    Q_D(const QQuickTimeline);
     return d->startFrame;
 }
 
-void QQuickKeyframeMutator::setStartFrame(qreal frame)
+void QQuickTimeline::setStartFrame(qreal frame)
 {
-    Q_D(QQuickKeyframeMutator);
+    Q_D(QQuickTimeline);
     if (d->startFrame == frame)
         return;
     d->startFrame = frame;
     emit startFrameChanged();
 }
 
-qreal QQuickKeyframeMutator::endFrame() const
+qreal QQuickTimeline::endFrame() const
 {
-    Q_D(const QQuickKeyframeMutator);
+    Q_D(const QQuickTimeline);
     return d->endFrame;
 }
 
-void QQuickKeyframeMutator::setEndFrame(qreal frame)
+void QQuickTimeline::setEndFrame(qreal frame)
 {
-    Q_D(QQuickKeyframeMutator);
+    Q_D(QQuickTimeline);
     if (d->endFrame == frame)
         return;
     d->endFrame = frame;
     emit endFrameChanged();
 }
 
-qreal QQuickKeyframeMutator::currentFrame() const
+qreal QQuickTimeline::currentFrame() const
 {
-    Q_D(const QQuickKeyframeMutator);
+    Q_D(const QQuickTimeline);
     return d->currentFrame;
 }
 
-void QQuickKeyframeMutator::setCurrentFrame(qreal frame)
+void QQuickTimeline::setCurrentFrame(qreal frame)
 {
-    Q_D(QQuickKeyframeMutator);
+    Q_D(QQuickTimeline);
     if (d->currentFrame == frame)
         return;
     d->currentFrame = frame;
@@ -185,31 +185,31 @@ void QQuickKeyframeMutator::setCurrentFrame(qreal frame)
     emit currentFrameChanged();
 }
 
-void QQuickKeyframeMutator::init()
+void QQuickTimeline::init()
 {
-    Q_D(QQuickKeyframeMutator);
+    Q_D(QQuickTimeline);
 
     if (d->componentComplete)
         d->init();
 }
 
-void QQuickKeyframeMutator::reset()
+void QQuickTimeline::reset()
 {
-    Q_D(QQuickKeyframeMutator);
+    Q_D(QQuickTimeline);
 
     if (d->componentComplete)
         d->disable();
 }
 
-void QQuickKeyframeMutator::classBegin()
+void QQuickTimeline::classBegin()
 {
-    Q_D(QQuickKeyframeMutator);
+    Q_D(QQuickTimeline);
     d->componentComplete = false;
 }
 
-void QQuickKeyframeMutator::componentComplete()
+void QQuickTimeline::componentComplete()
 {
-    Q_D(QQuickKeyframeMutator);
+    Q_D(QQuickTimeline);
     d->componentComplete = true;
 
     if (d->enabled)
