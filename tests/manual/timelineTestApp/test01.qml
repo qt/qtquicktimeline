@@ -65,7 +65,7 @@ Item {
 
             enabled: true
 
-            Keyframes {
+            KeyframeGroup {
                 target: rectangle
                 property: "x"
 
@@ -85,7 +85,7 @@ Item {
                 }
             }
 
-            Keyframes {
+            KeyframeGroup {
                 target: rectangle
                 property: "y"
 
@@ -106,7 +106,7 @@ Item {
                 }
             }
 
-            Keyframes {
+            KeyframeGroup {
                 target: rectangle
                 property: "color"
 

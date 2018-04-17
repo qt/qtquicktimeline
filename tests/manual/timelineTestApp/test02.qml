@@ -82,7 +82,7 @@ Item {
         startFrame: 0
         endFrame: 1000
 
-        Keyframes {
+        KeyframeGroup {
             target: leftGauge
             property: "x"
             Keyframe {
@@ -101,7 +101,7 @@ Item {
                 easing.type: Easing.OutQuad
             }
         }
-        Keyframes {
+        KeyframeGroup {
             target: leftGauge
             property: "y"
             Keyframe {
@@ -120,7 +120,7 @@ Item {
                 easing.type: Easing.OutQuad
             }
         }
-        Keyframes {
+        KeyframeGroup {
             target: leftGauge
             property: "opacity"
             Keyframe {
@@ -139,7 +139,7 @@ Item {
             }
         }
 
-        Keyframes {
+        KeyframeGroup {
             target: rightGauge
             property: "x"
             Keyframe {
@@ -157,7 +157,7 @@ Item {
                 easing.type: Easing.OutQuad
             }
         }
-        Keyframes {
+        KeyframeGroup {
             target: rightGauge
             property: "y"
             Keyframe {
@@ -175,7 +175,7 @@ Item {
                 easing.type: Easing.OutQuad
             }
         }
-        Keyframes {
+        KeyframeGroup {
             target: rightGauge
             property: "opacity"
             Keyframe {
@@ -194,7 +194,7 @@ Item {
             }
         }
 
-        Keyframes {
+        KeyframeGroup {
             target: bottomPane
             property: "y"
 
@@ -214,7 +214,7 @@ Item {
                 easing.type: Easing.OutQuad
             }
         }
-        Keyframes {
+        KeyframeGroup {
             target: bottomPane
             property: "opacity"
             Keyframe {

@@ -27,14 +27,14 @@ Module {
         Property { name: "startFrame"; type: "double" }
         Property { name: "endFrame"; type: "double" }
         Property { name: "currentFrame"; type: "double" }
-        Property { name: "keyframes"; type: "QQuickKeyframes"; isList: true; isReadonly: true }
+        Property { name: "keyframes"; type: "QQuickKeyframeGroup"; isList: true; isReadonly: true }
         Property { name: "enabled"; type: "bool" }
     }
     Component {
-        name: "QQuickKeyframes"
+        name: "QQuickKeyframeGroup"
         defaultProperty: "keyframes"
         prototype: "QObject"
-        exports: ["QtQuick.Timeline/Keyframes 1.0"]
+        exports: ["QtQuick.Timeline/KeyframeGroup 1.0"]
         exportMetaObjectRevisions: [0]
         Property { name: "target"; type: "QObject"; isPointer: true }
         Property { name: "property"; type: "string" }

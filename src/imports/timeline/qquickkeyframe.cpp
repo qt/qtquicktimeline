@@ -32,11 +32,11 @@
 
 QT_BEGIN_NAMESPACE
 
-class QQuickKeyframesPrivate : public QObjectPrivate
+class QQuickKeyframeGroupPrivate : public QObjectPrivate
 {
-    Q_DECLARE_PUBLIC(QQuickKeyframes)
+    Q_DECLARE_PUBLIC(QQuickKeyframeGroup)
 public:
-    QQuickKeyframesPrivate()
+    QQuickKeyframeGroupPrivate()
         : target(nullptr),
           componentComplete(false)
     {
@@ -60,7 +60,7 @@ protected:
     QVariant originalValue;
 };
 
-void QQuickKeyframesPrivate::setupKeyframes()
+void QQuickKeyframeGroupPrivate::setupKeyframes()
 {
     sortedKeyframes = keyframes;
     std::sort(sortedKeyframes.begin(), sortedKeyframes.end(), [](const QQuickKeyframe *first, const QQuickKeyframe *second) {
@@ -68,29 +68,29 @@ void QQuickKeyframesPrivate::setupKeyframes()
     });
 }
 
-void QQuickKeyframesPrivate::append_keyframe(QQmlListProperty<QQuickKeyframe> *list, QQuickKeyframe *a)
+void QQuickKeyframeGroupPrivate::append_keyframe(QQmlListProperty<QQuickKeyframe> *list, QQuickKeyframe *a)
 {
-    QQuickKeyframes *q = static_cast<QQuickKeyframes *>(list->object);
+    QQuickKeyframeGroup *q = static_cast<QQuickKeyframeGroup *>(list->object);
     q->d_func()->keyframes.append(a);
     q->d_func()->setupKeyframes();
     q->reset();
 }
 
-int QQuickKeyframesPrivate::keyframe_count(QQmlListProperty<QQuickKeyframe> *list)
+int QQuickKeyframeGroupPrivate::keyframe_count(QQmlListProperty<QQuickKeyframe> *list)
 {
-    QQuickKeyframes *q = static_cast<QQuickKeyframes *>(list->object);
+    QQuickKeyframeGroup *q = static_cast<QQuickKeyframeGroup *>(list->object);
     return q->d_func()->keyframes.count();
 }
 
-QQuickKeyframe* QQuickKeyframesPrivate::keyframe_at(QQmlListProperty<QQuickKeyframe> *list, int pos)
+QQuickKeyframe* QQuickKeyframeGroupPrivate::keyframe_at(QQmlListProperty<QQuickKeyframe> *list, int pos)
 {
-    QQuickKeyframes *q = static_cast<QQuickKeyframes *>(list->object);
+    QQuickKeyframeGroup *q = static_cast<QQuickKeyframeGroup *>(list->object);
     return q->d_func()->keyframes.at(pos);
 }
 
-void QQuickKeyframesPrivate::clear_keyframes(QQmlListProperty<QQuickKeyframe> *list)
+void QQuickKeyframeGroupPrivate::clear_keyframes(QQmlListProperty<QQuickKeyframe> *list)
 {
-    QQuickKeyframes *q = static_cast<QQuickKeyframes *>(list->object);
+    QQuickKeyframeGroup *q = static_cast<QQuickKeyframeGroup *>(list->object);
     while (q->d_func()->keyframes.count()) {
         QQuickKeyframe *firstKeyframe = q->d_func()->keyframes.at(0);
         q->d_func()->keyframes.removeAll(firstKeyframe);
@@ -134,7 +134,7 @@ void QQuickKeyframe::setFrame(qreal f)
 
 void QQuickKeyframe::reset()
 {
-    QQuickKeyframes *keyframes = qobject_cast<QQuickKeyframes*>(parent());
+    QQuickKeyframeGroup *keyframes = qobject_cast<QQuickKeyframeGroup*>(parent());
     if (keyframes)
         keyframes->reset();
 }
@@ -145,31 +145,31 @@ QQuickKeyframe::QQuickKeyframe(QQuickKeyframePrivate &dd, QObject *parent)
 
 }
 
-QQuickKeyframes::QQuickKeyframes(QObject *parent)
-    : QObject(*(new QQuickKeyframesPrivate), parent)
+QQuickKeyframeGroup::QQuickKeyframeGroup(QObject *parent)
+    : QObject(*(new QQuickKeyframeGroupPrivate), parent)
 {
 
 }
 
-QQmlListProperty<QQuickKeyframe> QQuickKeyframes::keyframes()
+QQmlListProperty<QQuickKeyframe> QQuickKeyframeGroup::keyframes()
 {
-    Q_D(QQuickKeyframes);
+    Q_D(QQuickKeyframeGroup);
 
-    return QQmlListProperty<QQuickKeyframe>(this, &d->keyframes, QQuickKeyframesPrivate::append_keyframe,
-                                            QQuickKeyframesPrivate::keyframe_count,
-                                            QQuickKeyframesPrivate::keyframe_at,
-                                            QQuickKeyframesPrivate::clear_keyframes);
+    return QQmlListProperty<QQuickKeyframe>(this, &d->keyframes, QQuickKeyframeGroupPrivate::append_keyframe,
+                                            QQuickKeyframeGroupPrivate::keyframe_count,
+                                            QQuickKeyframeGroupPrivate::keyframe_at,
+                                            QQuickKeyframeGroupPrivate::clear_keyframes);
 }
 
-QObject *QQuickKeyframes::target() const
+QObject *QQuickKeyframeGroup::target() const
 {
-    Q_D(const QQuickKeyframes);
+    Q_D(const QQuickKeyframeGroup);
     return d->target;
 }
 
-void QQuickKeyframes::setTargetObject(QObject *o)
+void QQuickKeyframeGroup::setTargetObject(QObject *o)
 {
-    Q_D(QQuickKeyframes);
+    Q_D(QQuickKeyframeGroup);
     if (d->target == o)
         return;
     d->target = o;
@@ -180,15 +180,15 @@ void QQuickKeyframes::setTargetObject(QObject *o)
     emit targetChanged();
 }
 
-QString QQuickKeyframes::property() const
+QString QQuickKeyframeGroup::property() const
 {
-    Q_D(const QQuickKeyframes);
+    Q_D(const QQuickKeyframeGroup);
     return d->propertyName;
 }
 
-void QQuickKeyframes::setProperty(const QString &n)
+void QQuickKeyframeGroup::setProperty(const QString &n)
 {
-    Q_D(QQuickKeyframes);
+    Q_D(QQuickKeyframeGroup);
     if (d->propertyName == n)
         return;
     d->propertyName = n;
@@ -199,9 +199,9 @@ void QQuickKeyframes::setProperty(const QString &n)
     emit propertyChanged();
 }
 
-QVariant QQuickKeyframes::evaluate(qreal frame) const
+QVariant QQuickKeyframeGroup::evaluate(qreal frame) const
 {
-    Q_D(const QQuickKeyframes);
+    Q_D(const QQuickKeyframeGroup);
 
     if (d->sortedKeyframes.isEmpty())
         return QVariant();
@@ -223,7 +223,7 @@ QVariant QQuickKeyframes::evaluate(qreal frame) const
     return lastFrame->value();
 }
 
-void QQuickKeyframes::setProperty(qreal frame)
+void QQuickKeyframeGroup::setProperty(qreal frame)
 {
     if (target()) {
         QQmlProperty qmlProperty(target(), property());
@@ -232,22 +232,22 @@ void QQuickKeyframes::setProperty(qreal frame)
     }
 }
 
-void QQuickKeyframes::init()
+void QQuickKeyframeGroup::init()
 {
-    Q_D(QQuickKeyframes);
+    Q_D(QQuickKeyframeGroup);
     if (target())
         d->originalValue = QQmlProperty::read(target(), property());
 }
 
-void QQuickKeyframes::resetDefaultValue()
+void QQuickKeyframeGroup::resetDefaultValue()
 {
-    Q_D(QQuickKeyframes);
+    Q_D(QQuickKeyframeGroup);
     QQmlProperty::write(target(), property(), d->originalValue);
 }
 
-void QQuickKeyframes::reset()
+void QQuickKeyframeGroup::reset()
 {
-    Q_D(QQuickKeyframes);
+    Q_D(QQuickKeyframeGroup);
     if (!d->componentComplete)
         return;
 
@@ -256,23 +256,23 @@ void QQuickKeyframes::reset()
         setProperty(timeline->currentFrame());
 }
 
-void QQuickKeyframes::setupKeyframes()
+void QQuickKeyframeGroup::setupKeyframes()
 {
-    Q_D(QQuickKeyframes);
+    Q_D(QQuickKeyframeGroup);
 
     if (d->componentComplete)
         d->setupKeyframes();
 }
 
-void QQuickKeyframes::classBegin()
+void QQuickKeyframeGroup::classBegin()
 {
-    Q_D(QQuickKeyframes);
+    Q_D(QQuickKeyframeGroup);
     d->componentComplete = false;
 }
 
-void QQuickKeyframes::componentComplete()
+void QQuickKeyframeGroup::componentComplete()
 {
-    Q_D(QQuickKeyframes);
+    Q_D(QQuickKeyframeGroup);
     d->componentComplete = true;
     setupKeyframes();
 }

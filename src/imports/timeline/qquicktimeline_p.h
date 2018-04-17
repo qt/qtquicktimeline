@@ -48,7 +48,7 @@ class QQuickTimeline : public QObject, public QQmlParserStatus
     Q_PROPERTY(qreal startFrame READ startFrame WRITE setStartFrame  NOTIFY startFrameChanged)
     Q_PROPERTY(qreal endFrame READ endFrame WRITE setEndFrame  NOTIFY endFrameChanged)
     Q_PROPERTY(qreal currentFrame READ currentFrame WRITE setCurrentFrame  NOTIFY currentFrameChanged)
-    Q_PROPERTY(QQmlListProperty<QQuickKeyframes> keyframes READ keyframes)
+    Q_PROPERTY(QQmlListProperty<QQuickKeyframeGroup> keyframes READ keyframes)
     Q_PROPERTY(bool enabled READ enabled WRITE setEnabled NOTIFY enabledChanged)
 
     Q_CLASSINFO("DefaultProperty", "keyframes")
@@ -56,7 +56,7 @@ class QQuickTimeline : public QObject, public QQmlParserStatus
 public:
     explicit QQuickTimeline(QObject *parent = nullptr);
 
-    QQmlListProperty<QQuickKeyframes> keyframes();
+    QQmlListProperty<QQuickKeyframeGroup> keyframes();
 
     bool enabled() const;
     void setEnabled(bool enabled);

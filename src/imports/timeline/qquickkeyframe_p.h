@@ -37,7 +37,7 @@
 
 QT_BEGIN_NAMESPACE
 
-class QQuickKeyframesPrivate;
+class QQuickKeyframeGroupPrivate;
 class QQuickKeyframePrivate;
 class QQuickNumberKeyframePrivate;
 
@@ -74,10 +74,10 @@ Q_SIGNALS:
     void valueChanged();
 };
 
-class QQuickKeyframes : public QObject, public QQmlParserStatus
+class QQuickKeyframeGroup : public QObject, public QQmlParserStatus
 {
     Q_OBJECT
-    Q_DECLARE_PRIVATE(QQuickKeyframes)
+    Q_DECLARE_PRIVATE(QQuickKeyframeGroup)
 
     Q_INTERFACES(QQmlParserStatus)
 
@@ -88,7 +88,7 @@ class QQuickKeyframes : public QObject, public QQmlParserStatus
     Q_CLASSINFO("DefaultProperty", "keyframes")
 
 public:
-    explicit QQuickKeyframes(QObject *parent = nullptr);
+    explicit QQuickKeyframeGroup(QObject *parent = nullptr);
 
     QQmlListProperty<QQuickKeyframe> keyframes();
 

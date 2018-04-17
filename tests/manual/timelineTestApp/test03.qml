@@ -29,7 +29,7 @@ Item {
         startFrame: 0
         endFrame: 200
         currentFrame: input.text
-        Keyframes {
+        KeyframeGroup {
             target: needle
             property: "rotation"
             Keyframe {
@@ -47,7 +47,7 @@ Item {
             }
         }
 
-        Keyframes {
+        KeyframeGroup {
             target: needle
             property: "color"
             Keyframe {
