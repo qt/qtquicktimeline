@@ -18,8 +18,9 @@
 
 #include <QtQml/qqmlextensionplugin.h>
 
-#include "qquicktimeline_p.h"
 #include "qquickkeyframe_p.h"
+#include "qquicktimeline_p.h"
+#include "qquicktimelineanimation_p.h"
 
 static inline void initResources()
 {
@@ -50,6 +51,7 @@ QtQuickTimelinePlugin::QtQuickTimelinePlugin(QObject *parent) : QQmlExtensionPlu
 void QtQuickTimelinePlugin::registerTypes(const char *uri)
 {
     qmlRegisterType<QQuickTimeline>(uri, 1, 0, "Timeline");
+    qmlRegisterType<QQuickTimelineAnimation>(uri, 1, 0, "TimelineAnimation");
     qmlRegisterType<QQuickKeyframe>(uri, 1, 0, "Keyframe");
     qmlRegisterType<QQuickKeyframeGroup>(uri, 1, 0, "KeyframeGroup");
 }

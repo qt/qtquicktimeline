@@ -4,5 +4,7 @@
         <file>test01.qml</file>
         <file>test02.qml</file>
         <file>test03.qml</file>
+        <file>test04.qml</file>
+        <file>test05.qml</file>
     </qresource>
 </RCC>

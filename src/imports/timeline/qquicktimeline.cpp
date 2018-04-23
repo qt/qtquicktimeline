@@ -53,7 +53,14 @@ protected:
     static QQuickKeyframeGroup* keyframe_at(QQmlListProperty<QQuickKeyframeGroup> *list, int pos);
     static void clear_keyframes(QQmlListProperty<QQuickKeyframeGroup> *list);
 
+    static void append_animation(QQmlListProperty<QQuickTimelineAnimation> *list, QQuickTimelineAnimation *a);
+    static int animation_count(QQmlListProperty<QQuickTimelineAnimation> *list);
+    static QQuickTimelineAnimation* animation_at(QQmlListProperty<QQuickTimelineAnimation> *list, int pos);
+    static void clear_animations(QQmlListProperty<QQuickTimelineAnimation> *list);
+
+
     QList<QQuickKeyframeGroup *> keyframes;
+    QList<QQuickTimelineAnimation *> animations;
 };
 
 void QQuickTimelinePrivate::init()
@@ -97,6 +104,34 @@ void QQuickTimelinePrivate::clear_keyframes(QQmlListProperty<QQuickKeyframeGroup
     }
 }
 
+void QQuickTimelinePrivate::append_animation(QQmlListProperty<QQuickTimelineAnimation> *list, QQuickTimelineAnimation *a)
+{
+    QQuickTimeline *q = static_cast<QQuickTimeline *>(list->object);
+    a->setTargetObject(q);
+    q->d_func()->animations.append(a);
+}
+
+int QQuickTimelinePrivate::animation_count(QQmlListProperty<QQuickTimelineAnimation> *list)
+{
+    QQuickTimeline *q = static_cast<QQuickTimeline *>(list->object);
+    return q->d_func()->animations.count();
+}
+
+QQuickTimelineAnimation* QQuickTimelinePrivate::animation_at(QQmlListProperty<QQuickTimelineAnimation> *list, int pos)
+{
+    QQuickTimeline *q = static_cast<QQuickTimeline *>(list->object);
+    return q->d_func()->animations.at(pos);
+}
+
+void QQuickTimelinePrivate::clear_animations(QQmlListProperty<QQuickTimelineAnimation> *list)
+{
+    QQuickTimeline *q = static_cast<QQuickTimeline *>(list->object);
+    while (q->d_func()->animations.count()) {
+        QQuickTimelineAnimation *firstAnimation = q->d_func()->animations.at(0);
+        q->d_func()->animations.removeAll(firstAnimation);
+    }
+}
+
 QQuickTimeline::QQuickTimeline(QObject *parent) : QObject(*(new QQuickTimelinePrivate), parent)
 {
 
@@ -107,9 +142,19 @@ QQmlListProperty<QQuickKeyframeGroup> QQuickTimeline::keyframes()
     Q_D(QQuickTimeline);
 
     return QQmlListProperty<QQuickKeyframeGroup>(this, &d->keyframes, QQuickTimelinePrivate::append_keyframe,
-                                             QQuickTimelinePrivate::keyframe_count,
-                                             QQuickTimelinePrivate::keyframe_at,
-                                             QQuickTimelinePrivate::clear_keyframes);
+                                                 QQuickTimelinePrivate::keyframe_count,
+                                                 QQuickTimelinePrivate::keyframe_at,
+                                                 QQuickTimelinePrivate::clear_keyframes);
+}
+
+QQmlListProperty<QQuickTimelineAnimation> QQuickTimeline::animations()
+{
+    Q_D(QQuickTimeline);
+
+    return QQmlListProperty<QQuickTimelineAnimation>(this, &d->animations, QQuickTimelinePrivate::append_animation,
+                                                     QQuickTimelinePrivate::animation_count,
+                                                     QQuickTimelinePrivate::animation_at,
+                                                     QQuickTimelinePrivate::clear_animations);
 }
 
 bool QQuickTimeline::enabled() const
@@ -199,6 +244,13 @@ void QQuickTimeline::reset()
 
     if (d->componentComplete)
         d->disable();
+}
+
+QList<QQuickTimelineAnimation *> QQuickTimeline::getAnimations() const
+{
+     Q_D(const QQuickTimeline);
+
+    return d->animations;
 }
 
 void QQuickTimeline::classBegin()

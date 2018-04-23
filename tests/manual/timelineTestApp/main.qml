@@ -61,5 +61,23 @@ Window {
                 onClicked: loader.source = "test03.qml"
             }
         }
+
+        Text {
+            text: "Test 04"
+            font.pixelSize: 12
+            MouseArea {
+                anchors.fill: parent
+                onClicked: loader.source = "test04.qml"
+            }
+        }
+
+        Text {
+            text: "Test 05"
+            font.pixelSize: 12
+            MouseArea {
+                anchors.fill: parent
+                onClicked: loader.source = "test05.qml"
+            }
+        }
     }
 }

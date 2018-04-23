@@ -20,14 +20,6 @@ import QtQuick 2.0
 import QtQuick.Timeline 1.0
 
 Item {
-    PropertyAnimation {
-        running: true
-        duration: 1000
-        target: timeline
-        property: "currentFrame"
-        from: 0
-        to: 1000
-    }
 
     Rectangle {
         id: leftGauge
@@ -81,6 +73,16 @@ Item {
 
         startFrame: 0
         endFrame: 1000
+
+        animations: [
+
+            TimelineAnimation {
+                running: true
+                duration: 1000
+                from: 0
+                to: 1000
+            }
+        ]
 
         KeyframeGroup {
             target: leftGauge

@@ -9,6 +9,44 @@ import QtQuick.tooling 1.2
 Module {
     dependencies: []
     Component {
+        name: "QQuickAbstractAnimation"
+        prototype: "QObject"
+        Enum {
+            name: "Loops"
+            values: {
+                "Infinite": -2
+            }
+        }
+        Property { name: "running"; type: "bool" }
+        Property { name: "paused"; type: "bool" }
+        Property { name: "alwaysRunToEnd"; type: "bool" }
+        Property { name: "loops"; type: "int" }
+        Signal { name: "started" }
+        Signal { name: "stopped" }
+        Signal {
+            name: "runningChanged"
+            Parameter { type: "bool" }
+        }
+        Signal {
+            name: "pausedChanged"
+            Parameter { type: "bool" }
+        }
+        Signal {
+            name: "alwaysRunToEndChanged"
+            Parameter { type: "bool" }
+        }
+        Signal {
+            name: "loopCountChanged"
+            Parameter { type: "int" }
+        }
+        Method { name: "restart" }
+        Method { name: "start" }
+        Method { name: "pause" }
+        Method { name: "resume" }
+        Method { name: "stop" }
+        Method { name: "complete" }
+    }
+    Component {
         name: "QQuickKeyframe"
         prototype: "QObject"
         exports: ["QtQuick.Timeline/Keyframe 1.0"]
@@ -17,6 +55,55 @@ Module {
         Property { name: "easing"; type: "QEasingCurve" }
         Property { name: "value"; type: "QVariant" }
         Signal { name: "easingCurveChanged" }
+    }
+    Component {
+        name: "QQuickKeyframeGroup"
+        defaultProperty: "keyframes"
+        prototype: "QObject"
+        exports: ["QtQuick.Timeline/KeyframeGroup 1.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "target"; type: "QObject"; isPointer: true }
+        Property { name: "property"; type: "string" }
+        Property { name: "keyframes"; type: "QQuickKeyframe"; isList: true; isReadonly: true }
+    }
+    Component {
+        name: "QQuickNumberAnimation"
+        prototype: "QQuickPropertyAnimation"
+        Property { name: "from"; type: "double" }
+        Property { name: "to"; type: "double" }
+    }
+    Component {
+        name: "QQuickPropertyAnimation"
+        prototype: "QQuickAbstractAnimation"
+        Property { name: "duration"; type: "int" }
+        Property { name: "from"; type: "QVariant" }
+        Property { name: "to"; type: "QVariant" }
+        Property { name: "easing"; type: "QEasingCurve" }
+        Property { name: "target"; type: "QObject"; isPointer: true }
+        Property { name: "property"; type: "string" }
+        Property { name: "properties"; type: "string" }
+        Property { name: "targets"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "exclude"; type: "QObject"; isList: true; isReadonly: true }
+        Signal {
+            name: "durationChanged"
+            Parameter { type: "int" }
+        }
+        Signal {
+            name: "fromChanged"
+            Parameter { type: "QVariant" }
+        }
+        Signal {
+            name: "toChanged"
+            Parameter { type: "QVariant" }
+        }
+        Signal {
+            name: "easingChanged"
+            Parameter { type: "QEasingCurve" }
+        }
+        Signal {
+            name: "propertiesChanged"
+            Parameter { type: "string" }
+        }
     }
     Component {
         name: "QQuickTimeline"
@@ -28,16 +115,16 @@ Module {
         Property { name: "endFrame"; type: "double" }
         Property { name: "currentFrame"; type: "double" }
         Property { name: "keyframes"; type: "QQuickKeyframeGroup"; isList: true; isReadonly: true }
+        Property { name: "animations"; type: "QQuickTimelineAnimation"; isList: true; isReadonly: true }
         Property { name: "enabled"; type: "bool" }
     }
     Component {
-        name: "QQuickKeyframeGroup"
-        defaultProperty: "keyframes"
-        prototype: "QObject"
-        exports: ["QtQuick.Timeline/KeyframeGroup 1.0"]
+        name: "QQuickTimelineAnimation"
+        prototype: "QQuickNumberAnimation"
+        exports: ["QtQuick.Timeline/TimelineAnimation 1.0"]
         exportMetaObjectRevisions: [0]
-        Property { name: "target"; type: "QObject"; isPointer: true }
-        Property { name: "property"; type: "string" }
-        Property { name: "keyframes"; type: "QQuickKeyframe"; isList: true; isReadonly: true }
+        Property { name: "pingPong"; type: "bool" }
+        Signal { name: "finished" }
+        Signal { name: "pingPongChanged" }
     }
 }

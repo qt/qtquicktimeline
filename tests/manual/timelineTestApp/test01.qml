@@ -37,19 +37,8 @@ Item {
         color: "blue"
         MouseArea {
             anchors.fill: parent
-            onClicked: animation.start()
+            onClicked: animation.restart()
         }
-    }
-
-    NumberAnimation {
-        id: animation
-        target: timeline
-        property: "currentFrame"
-        easing.type: Easing.InOutQuad
-        duration: 2000
-        from: 0
-        to: 100
-        running: true
     }
 
     Item {
@@ -64,6 +53,17 @@ Item {
             currentFrame: 50
 
             enabled: true
+
+            animations: [
+                TimelineAnimation {
+                    id: animation
+                    duration: 2000
+                    from: 0
+                    to: 100
+                    running: false
+                }
+
+            ]
 
             KeyframeGroup {
                 target: rectangle

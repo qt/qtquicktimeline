@@ -31,6 +31,7 @@
 //
 
 #include "qquickkeyframe_p.h"
+#include "qquicktimelineanimation_p.h"
 
 #include <QtQml/qqml.h>
 
@@ -49,6 +50,7 @@ class QQuickTimeline : public QObject, public QQmlParserStatus
     Q_PROPERTY(qreal endFrame READ endFrame WRITE setEndFrame  NOTIFY endFrameChanged)
     Q_PROPERTY(qreal currentFrame READ currentFrame WRITE setCurrentFrame  NOTIFY currentFrameChanged)
     Q_PROPERTY(QQmlListProperty<QQuickKeyframeGroup> keyframes READ keyframes)
+    Q_PROPERTY(QQmlListProperty<QQuickTimelineAnimation> animations READ animations)
     Q_PROPERTY(bool enabled READ enabled WRITE setEnabled NOTIFY enabledChanged)
 
     Q_CLASSINFO("DefaultProperty", "keyframes")
@@ -57,6 +59,7 @@ public:
     explicit QQuickTimeline(QObject *parent = nullptr);
 
     QQmlListProperty<QQuickKeyframeGroup> keyframes();
+    QQmlListProperty<QQuickTimelineAnimation> animations();
 
     bool enabled() const;
     void setEnabled(bool enabled);
@@ -72,6 +75,8 @@ public:
 
     void init();
     void reset();
+
+    QList<QQuickTimelineAnimation*> getAnimations() const;
 
 protected:
     void classBegin() override;
