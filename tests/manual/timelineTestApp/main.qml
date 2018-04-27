@@ -79,5 +79,41 @@ Window {
                 onClicked: loader.source = "test05.qml"
             }
         }
+
+        Text {
+            text: "Test 06"
+            font.pixelSize: 12
+            MouseArea {
+                anchors.fill: parent
+                onClicked: loader.source = "test06.qml"
+            }
+        }
+
+        Text {
+            text: "Test 07"
+            font.pixelSize: 12
+            MouseArea {
+                anchors.fill: parent
+                onClicked: loader.source = "test07.qml"
+            }
+        }
+
+        Text {
+            text: "Test 08"
+            font.pixelSize: 12
+            MouseArea {
+                anchors.fill: parent
+                onClicked: loader.source = "test08.qml"
+            }
+        }
+
+        Text {
+            text: "Test 09"
+            font.pixelSize: 12
+            MouseArea {
+                anchors.fill: parent
+                onClicked: loader.source = "test09.qml"
+            }
+        }
     }
 }

@@ -6,5 +6,10 @@
         <file>test03.qml</file>
         <file>test04.qml</file>
         <file>test05.qml</file>
+        <file>test06.qml</file>
+        <file>test07.qml</file>
+        <file>test08.qml</file>
+        <file>Circle.qml</file>
+        <file>test09.qml</file>
     </qresource>
 </RCC>
