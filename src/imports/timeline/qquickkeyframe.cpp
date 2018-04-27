@@ -329,7 +329,12 @@ QVariant QQuickKeyframe::evaluate(QQuickKeyframe *pre, qreal frametime, int user
     QVariant convertedValue = value();
     convertedValue.convert(userType);
 
-    return interpolator(preValue.constData(), convertedValue.constData(), progress);
+    if (preValue.isValid() && convertedValue.isValid())
+        return interpolator(preValue.constData(), convertedValue.constData(), progress);
+
+    qWarning() << "invalid keyframe target";
+
+    return QVariant();
 }
 
 QT_END_NAMESPACE
