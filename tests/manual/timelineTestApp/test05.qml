@@ -25,7 +25,7 @@ Item {
 
     id: root
 
-    state: "page02"
+    state: "onPage02"
 
     Rectangle {
         id: rectangle
@@ -63,7 +63,7 @@ Item {
         height: 480
 
         Rectangle {
-            id: screen01
+            id: page01
             x: 0
             y: 0
             width: 640
@@ -80,9 +80,8 @@ Item {
             }
         }
 
-
         Rectangle {
-            id: screen02
+            id: page02
             x: 640
             y: 0
             width: 640
@@ -94,15 +93,13 @@ Item {
                 y: 0
                 text: qsTr("Page 02")
                 anchors.verticalCenter: parent.verticalCenter
-                font.pixelSize: 38
                 anchors.horizontalCenter: parent.horizontalCenter
+                font.pixelSize: 38
             }
         }
 
-
-
         Rectangle {
-            id: screen03
+            id: page03
             x: 1280
             y: 0
             width: 640
@@ -114,8 +111,8 @@ Item {
                 y: 0
                 text: qsTr("Page 03")
                 anchors.verticalCenter: parent.verticalCenter
-                font.pixelSize: 38
                 anchors.horizontalCenter: parent.horizontalCenter
+                font.pixelSize: 38
             }
         }
     }
@@ -128,34 +125,33 @@ Item {
 
         animations: [
             TimelineAnimation {
-                id: animationToPage01
-                from: 500
-                to: 0
-                running: false
-                onFinished: root.state = "page01"
-            },
-            TimelineAnimation {
-                id: animationToPage02Left
+                id: animationToPage02FromLeft
                 from: 0
                 to: 500
                 running: false
-                onFinished: root.state = "page02"
+                onFinished: root.state = "onPage02"
             },
             TimelineAnimation {
-                id: animationToPage02Right
-                from: 1000
-                to: 500
-                running: false
-                onFinished: root.state = "page02"
-            },
-            TimelineAnimation {
-                id: animationToPage03
+                id: animationToPage03FromLeft
                 from: 500
                 to: 1000
                 running: false
-                onFinished: root.state = "page03"
+                onFinished: root.state = "onPage03"
+            },
+            TimelineAnimation {
+                id: animationToPage02FromRight
+                from: 1000
+                to: 500
+                running: false
+                onFinished: root.state = "onPage02"
+            },
+            TimelineAnimation {
+                id: animationToPage01FromRight
+                from: 500
+                to: 0
+                running: false
+                onFinished: root.state = "onPage01"
             }
-
         ]
 
         KeyframeGroup {
@@ -181,83 +177,79 @@ Item {
 
     Connections {
         target: rightArea
-        enabled: root.state == "page01"
+        enabled: root.state == "onPage01"
         onClicked: root.state = "toPage02FromLeft"
     }
 
     Connections {
         target: rightArea
-        enabled: root.state == "page02"
-        onClicked: root.state = "toPage03"
+        enabled: root.state == "onPage02"
+        onClicked: root.state = "toPage03FromLeft"
     }
 
     Connections {
         target: leftArea
-        enabled: root.state == "page02"
-        onClicked: root.state = "toPage01"
+        enabled: root.state == "onPage02"
+        onClicked: root.state = "toPage01FromRight"
     }
 
     Connections {
         target: leftArea
-        enabled: root.state == "page03"
+        enabled: root.state == "onPage03"
         onClicked: root.state = "toPage02FromRight"
     }
 
     states: [
         State {
-            name: "page01"
-
+            name: "onPage01"
             PropertyChanges {
                 target: timeline
                 currentFrame: 0
             }
         },
         State {
-            name: "page02"
-
+            name: "onPage02"
             PropertyChanges {
                 target: timeline
                 currentFrame: 500
             }
         },
         State {
-            name: "page03"
-
+            name: "onPage03"
             PropertyChanges {
                 target: timeline
                 currentFrame: 1000
             }
         },
         State {
-            name: "toPage01"
+            name: "toPage01FromRight"
             PropertyChanges {
-                target: animationToPage01
+                target: animationToPage01FromRight
                 running: true
             }
         },
         State {
             name: "toPage02FromLeft"
             PropertyChanges {
-                target: animationToPage02Left
+                target: animationToPage02FromLeft
                 running: true
             }
         },
         State {
-            name: "toPage03"
+            name: "toPage03FromLeft"
             PropertyChanges {
-                target: animationToPage03
+                target: animationToPage03FromLeft
                 running: true
             }
         },
         State {
             name: "toPage02FromRight"
             PropertyChanges {
-                target: animationToPage02Right
+                target: animationToPage02FromRight
                 running: true
             }
         }
     ]
-
 }
 
 /*##^## Designer {
