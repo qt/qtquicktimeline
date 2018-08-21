@@ -1,20 +1,23 @@
-/****************************************************************************
+/******************************************************************************
 **
-** Copyright (C) 2017 The Qt Company Ltd
-** All rights reserved.
-** For any questions to The Qt Company, please use contact form at http://www.qt.io/contact-us
+** Copyright (C) 2018 The Qt Company Ltd.
+** Contact: http://www.qt.io/licensing/
 **
-** This file is part of the Qt Enterprise Qt Quick Timeline Add-on.
+** This file is part of the Qt Quick Timeline module of the Qt Toolkit.
 **
-** Licensees holding valid Qt Enterprise licenses may use this file in
-** accordance with the Qt Enterprise License Agreement provided with the
+** $QT_BEGIN_LICENSE:COMM$
+**
+** Commercial License Usage
+** Licensees holding valid commercial Qt licenses may use this file in
+** accordance with the commercial license agreement provided with the
 ** Software or, alternatively, in accordance with the terms contained in
-** a written agreement between you and The Qt Company.
+** a written agreement between you and The Qt Company. For licensing terms
+** and conditions see http://www.qt.io/terms-conditions. For further
+** information use the contact form at http://www.qt.io/contact-us.
 **
-** If you have questions regarding the use of this file, please use
-** contact form at http://www.qt.io/contact-us
+** $QT_END_LICENSE$
 **
-****************************************************************************/
+******************************************************************************/
 
 #include "qquicktimeline_p.h"
 

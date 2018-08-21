@@ -1,0 +1,16 @@
+.DS_Store
+build*
+*.pro.*
+*.qmlproject.*
+.qmake.stash
+.qmake.cache
+*.autosave
+Makefile*
+/mkspecs*
+.moc/
+.pch/
+.obj/
+.rcc
+qmlplugindump_wrapper*
+Makefile
+*_resource.rc
