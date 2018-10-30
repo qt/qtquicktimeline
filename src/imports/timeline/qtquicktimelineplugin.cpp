@@ -44,14 +44,6 @@
 #include "qquicktimeline_p.h"
 #include "qquicktimelineanimation_p.h"
 
-static inline void initResources()
-{
-    Q_INIT_RESOURCE(qtquicktimelineplugin);
-#ifdef QT_STATIC
-    Q_INIT_RESOURCE(qmake_QtQuick_Controls_2);
-#endif
-}
-
 QT_BEGIN_NAMESPACE
 
 class QtQuickTimelinePlugin: public QQmlExtensionPlugin
@@ -67,7 +59,6 @@ public:
 
 QtQuickTimelinePlugin::QtQuickTimelinePlugin(QObject *parent) : QQmlExtensionPlugin(parent)
 {
-    initResources();
 }
 
 void QtQuickTimelinePlugin::registerTypes(const char *uri)
