@@ -20,7 +20,5 @@ SOURCES += \
 RESOURCES += \
     $$PWD/qtquicktimelineplugin.qrc
 
-!static: qtConfig(quick-designer): include(designer/designer.pri)
-
 CONFIG += no_cxx_module
 load(qml_plugin)
