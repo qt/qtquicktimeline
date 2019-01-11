@@ -1,6 +1,6 @@
 /******************************************************************************
 **
-** Copyright (C) 2018 The Qt Company Ltd.
+** Copyright (C) 2019 The Qt Company Ltd.
 ** Contact: http://www.qt.io/licensing/
 **
 ** This file is part of the Qt Quick Timeline module of the Qt Toolkit.
@@ -153,6 +153,57 @@ void QQuickTimelinePrivate::clear_animations(QQmlListProperty<QQuickTimelineAnim
         q->d_func()->animations.removeAll(firstAnimation);
     }
 }
+
+/*!
+    \qmltype Timeline
+    \inherits QObject
+    \instantiates QQuickTimeline
+    \inqmlmodule QtQuick.Timeline
+    \ingroup qtqmltypes
+
+    \brief A timeline.
+
+    Specifies a timeline with a range of keyframes that contain values for the
+    properties of an object.
+*/
+
+/*!
+    \qmlproperty double Timeline::startFrame
+
+    The first keyframe on the timeline.
+*/
+
+/*!
+    \qmlproperty double Timeline::endFrame
+
+    The last keyframe on the timeline.
+*/
+
+/*!
+    \qmlproperty double Timeline::currentFrame
+
+    The current keyframe on the timeline.
+*/
+
+/*!
+    \qmlproperty list Timeline::keyframes
+    \readonly
+
+    The keyframe group that contains a list of keyframes on the timeline.
+*/
+
+/*!
+    \qmlproperty list Timeline::animations
+    \readonly
+
+    A list of animations attached to the timeline.
+*/
+
+/*!
+    \qmlproperty bool Timeline::enabled
+
+    Whether the timeline is enabled.
+*/
 
 QQuickTimeline::QQuickTimeline(QObject *parent) : QObject(*(new QQuickTimelinePrivate), parent)
 {

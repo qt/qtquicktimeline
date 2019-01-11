@@ -1,6 +1,6 @@
 /******************************************************************************
 **
-** Copyright (C) 2018 The Qt Company Ltd.
+** Copyright (C) 2019 The Qt Company Ltd.
 ** Contact: http://www.qt.io/licensing/
 **
 ** This file is part of the Qt Quick Timeline module of the Qt Toolkit.
@@ -48,6 +48,31 @@
 #include <QTimer>
 
 QT_BEGIN_NAMESPACE
+
+/*!
+    \qmltype TimelineAnimation
+    \inherits QQuickNumberAnimation
+    \instantiates QQuickTimelineAnimation
+    \inqmlmodule QtQuick.Timeline
+    \ingroup qtqmltypes
+
+    \brief A number animation attached to a timeline.
+
+    Specifies a number animation attached to a timeline that animates the
+    properties of an object.
+*/
+
+/*!
+    \qmlproperty bool TimelineAnimation::pingPong
+
+    Whether the animation .
+*/
+
+/*!
+    \qmlsignal TimelineAnimation::finished
+
+    This signal is emitted when the timeline animation finishes.
+*/
 
 QQuickTimelineAnimation::QQuickTimelineAnimation(QObject *parent) : QQuickNumberAnimation(parent)
 {

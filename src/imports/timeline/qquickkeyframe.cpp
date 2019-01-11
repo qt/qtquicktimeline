@@ -1,6 +1,6 @@
 /******************************************************************************
 **
-** Copyright (C) 2018 The Qt Company Ltd.
+** Copyright (C) 2019 The Qt Company Ltd.
 ** Contact: http://www.qt.io/licensing/
 **
 ** This file is part of the Qt Quick Timeline module of the Qt Toolkit.
@@ -53,6 +53,7 @@
 #include <algorithm>
 
 QT_BEGIN_NAMESPACE
+
 
 class QQuickKeyframeGroupPrivate : public QObjectPrivate
 {
@@ -133,6 +134,45 @@ public:
     QVariant value;
 };
 
+/*!
+    \qmltype Keyframe
+    \inherits QObject
+    \instantiates QQuickKeyframe
+    \inqmlmodule QtQuick.Timeline
+    \ingroup qtqmltypes
+
+    \brief A keyframe.
+
+    Specifies the value of a keyframe on a timeline.
+
+    An easing curve can be attached to the keyframe.
+*/
+
+/*!
+    \qmlproperty double Keyframe::frame
+
+    The position of the keyframe on the timeline.
+*/
+
+/*!
+    \qmlproperty var Keyframe::easing
+
+    The easing curve attached to the keyframe.
+*/
+
+/*!
+    \qmlproperty var Keyframe::value
+
+    The value of the keyframe.
+*/
+
+/*!
+    \qmlsignal Keyframe::easingCurveChanged
+
+    This signal is emitted when the easing curve attached to the keyframe
+    changes.
+*/
+
 QQuickKeyframe::QQuickKeyframe(QObject *parent)
     : QObject(*(new QQuickKeyframePrivate), parent)
 {
@@ -166,6 +206,35 @@ QQuickKeyframe::QQuickKeyframe(QQuickKeyframePrivate &dd, QObject *parent)
 {
 
 }
+
+/*!
+    \qmltype KeyframeGroup
+    \inherits QObject
+    \instantiates QQuickKeyframeGroup
+    \inqmlmodule QtQuick.Timeline
+    \ingroup qtqmltypes
+
+    \brief A keyframe group.
+
+    Specifies the property that is animated by a set of keyframes on a timeline.
+*/
+
+/*!
+    \qmlproperty var KeyframeGroup::target
+*/
+
+/*!
+    \qmlproperty string KeyframeGroup::property
+
+    The property that is animated.
+*/
+
+/*!
+    \qmlproperty list KeyframeGroup::keyframes
+    \readonly
+
+    A list of keyframes that belong to the keyframe group.
+*/
 
 QQuickKeyframeGroup::QQuickKeyframeGroup(QObject *parent)
     : QObject(*(new QQuickKeyframeGroupPrivate), parent)

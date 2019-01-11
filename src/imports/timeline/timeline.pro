@@ -21,4 +21,7 @@ RESOURCES += \
     $$PWD/qtquicktimelineplugin.qrc
 
 CONFIG += no_cxx_module
+
+QMAKE_DOCS = $$PWD/doc/qtquicktimeline.qdocconf
+
 load(qml_plugin)
