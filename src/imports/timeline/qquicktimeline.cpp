@@ -1,12 +1,11 @@
-/******************************************************************************
+/****************************************************************************
 **
 ** Copyright (C) 2019 The Qt Company Ltd.
-** Contact: http://www.qt.io/licensing/
+** Contact: https://www.qt.io/licensing/
 **
-** This file is part of the Qt Quick Timeline module of the Qt Toolkit.
+** This file is part of Qt Quick Designer Components.
 **
-** $QT_BEGIN_LICENSE:LGPL$
-**
+** $QT_BEGIN_LICENSE:GPL$
 ** Commercial License Usage
 ** Licensees holding valid commercial Qt licenses may use this file in
 ** accordance with the commercial license agreement provided with the
@@ -15,24 +14,14 @@
 ** and conditions see https://www.qt.io/terms-conditions. For further
 ** information use the contact form at https://www.qt.io/contact-us.
 **
-** GNU Lesser General Public License Usage
-** Alternatively, this file may be used under the terms of the GNU Lesser
-** General Public License version 3 as published by the Free Software
-** Foundation and appearing in the file LICENSE.LGPL3 included in the
-** packaging of this file. Please review the following information to
-** ensure the GNU Lesser General Public License version 3 requirements
-** will be met: https://www.gnu.org/licenses/lgpl-3.0.html.
-**
 ** GNU General Public License Usage
 ** Alternatively, this file may be used under the terms of the GNU
-** General Public License version 2.0 or (at your option) the GNU General
-** Public license version 3 or any later version approved by the KDE Free
-** Qt Foundation. The licenses are as published by the Free Software
-** Foundation and appearing in the file LICENSE.GPL2 and LICENSE.GPL3
+** General Public License version 3 or (at your option) any later version
+** approved by the KDE Free Qt Foundation. The licenses are as published by
+** the Free Software Foundation and appearing in the file LICENSE.GPL3
 ** included in the packaging of this file. Please review the following
 ** information to ensure the GNU General Public License requirements will
-** be met: https://www.gnu.org/licenses/gpl-2.0.html and
-** https://www.gnu.org/licenses/gpl-3.0.html.
+** be met: https://www.gnu.org/licenses/gpl-3.0.html.
 **
 ** $QT_END_LICENSE$
 **
@@ -153,57 +142,6 @@ void QQuickTimelinePrivate::clear_animations(QQmlListProperty<QQuickTimelineAnim
         q->d_func()->animations.removeAll(firstAnimation);
     }
 }
-
-/*!
-    \qmltype Timeline
-    \inherits QObject
-    \instantiates QQuickTimeline
-    \inqmlmodule QtQuick.Timeline
-    \ingroup qtqmltypes
-
-    \brief A timeline.
-
-    Specifies a timeline with a range of keyframes that contain values for the
-    properties of an object.
-*/
-
-/*!
-    \qmlproperty double Timeline::startFrame
-
-    The first keyframe on the timeline.
-*/
-
-/*!
-    \qmlproperty double Timeline::endFrame
-
-    The last keyframe on the timeline.
-*/
-
-/*!
-    \qmlproperty double Timeline::currentFrame
-
-    The current keyframe on the timeline.
-*/
-
-/*!
-    \qmlproperty list Timeline::keyframes
-    \readonly
-
-    The keyframe group that contains a list of keyframes on the timeline.
-*/
-
-/*!
-    \qmlproperty list Timeline::animations
-    \readonly
-
-    A list of animations attached to the timeline.
-*/
-
-/*!
-    \qmlproperty bool Timeline::enabled
-
-    Whether the timeline is enabled.
-*/
 
 QQuickTimeline::QQuickTimeline(QObject *parent) : QObject(*(new QQuickTimelinePrivate), parent)
 {

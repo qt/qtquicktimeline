@@ -1,12 +1,11 @@
-/******************************************************************************
+/****************************************************************************
 **
 ** Copyright (C) 2019 The Qt Company Ltd.
-** Contact: http://www.qt.io/licensing/
+** Contact: https://www.qt.io/licensing/
 **
-** This file is part of the Qt Quick Timeline module of the Qt Toolkit.
+** This file is part of Qt Quick Designer Components.
 **
-** $QT_BEGIN_LICENSE:LGPL$
-**
+** $QT_BEGIN_LICENSE:GPL$
 ** Commercial License Usage
 ** Licensees holding valid commercial Qt licenses may use this file in
 ** accordance with the commercial license agreement provided with the
@@ -15,24 +14,14 @@
 ** and conditions see https://www.qt.io/terms-conditions. For further
 ** information use the contact form at https://www.qt.io/contact-us.
 **
-** GNU Lesser General Public License Usage
-** Alternatively, this file may be used under the terms of the GNU Lesser
-** General Public License version 3 as published by the Free Software
-** Foundation and appearing in the file LICENSE.LGPL3 included in the
-** packaging of this file. Please review the following information to
-** ensure the GNU Lesser General Public License version 3 requirements
-** will be met: https://www.gnu.org/licenses/lgpl-3.0.html.
-**
 ** GNU General Public License Usage
 ** Alternatively, this file may be used under the terms of the GNU
-** General Public License version 2.0 or (at your option) the GNU General
-** Public license version 3 or any later version approved by the KDE Free
-** Qt Foundation. The licenses are as published by the Free Software
-** Foundation and appearing in the file LICENSE.GPL2 and LICENSE.GPL3
+** General Public License version 3 or (at your option) any later version
+** approved by the KDE Free Qt Foundation. The licenses are as published by
+** the Free Software Foundation and appearing in the file LICENSE.GPL3
 ** included in the packaging of this file. Please review the following
 ** information to ensure the GNU General Public License requirements will
-** be met: https://www.gnu.org/licenses/gpl-2.0.html and
-** https://www.gnu.org/licenses/gpl-3.0.html.
+** be met: https://www.gnu.org/licenses/gpl-3.0.html.
 **
 ** $QT_END_LICENSE$
 **
@@ -48,31 +37,6 @@
 #include <QTimer>
 
 QT_BEGIN_NAMESPACE
-
-/*!
-    \qmltype TimelineAnimation
-    \inherits QQuickNumberAnimation
-    \instantiates QQuickTimelineAnimation
-    \inqmlmodule QtQuick.Timeline
-    \ingroup qtqmltypes
-
-    \brief A number animation attached to a timeline.
-
-    Specifies a number animation attached to a timeline that animates the
-    properties of an object.
-*/
-
-/*!
-    \qmlproperty bool TimelineAnimation::pingPong
-
-    Whether the animation .
-*/
-
-/*!
-    \qmlsignal TimelineAnimation::finished
-
-    This signal is emitted when the timeline animation finishes.
-*/
 
 QQuickTimelineAnimation::QQuickTimelineAnimation(QObject *parent) : QQuickNumberAnimation(parent)
 {
