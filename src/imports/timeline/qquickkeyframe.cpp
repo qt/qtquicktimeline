@@ -340,8 +340,12 @@ QVariant QQuickKeyframe::evaluate(QQuickKeyframe *pre, qreal frametime, int user
     QVariant convertedValue = value();
     convertedValue.convert(userType);
 
-    if (!interpolator)
-        return preValue;
+    if (!interpolator) {
+        if (progress < 1.0)
+            return preValue;
+
+        return convertedValue;
+    }
 
     if (preValue.isValid() && convertedValue.isValid())
         return interpolator(preValue.constData(), convertedValue.constData(), progress);
