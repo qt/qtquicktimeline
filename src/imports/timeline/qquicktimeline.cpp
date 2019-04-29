@@ -234,11 +234,18 @@ void QQuickTimeline::setCurrentFrame(qreal frame)
         return;
     d->currentFrame = frame;
 
+    reevaulate();
+
+    emit currentFrameChanged();
+}
+
+void QQuickTimeline::reevaulate()
+{
+    Q_D(QQuickTimeline);
+
     if (d->componentComplete && d->enabled)
         for (auto keyFrames : d->keyframes)
             keyFrames->setProperty(d->currentFrame);
-
-    emit currentFrameChanged();
 }
 
 void QQuickTimeline::init()

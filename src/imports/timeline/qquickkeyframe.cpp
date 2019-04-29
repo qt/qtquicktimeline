@@ -264,7 +264,7 @@ void QQuickKeyframeGroup::reset()
 
     auto *timeline = qobject_cast<QQuickTimeline*>(parent());
     if (timeline)
-        setProperty(timeline->currentFrame());
+        timeline->reevaulate();
 }
 
 void QQuickKeyframeGroup::setupKeyframes()

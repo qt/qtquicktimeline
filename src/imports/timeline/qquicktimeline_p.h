@@ -84,6 +84,8 @@ public:
     qreal currentFrame() const;
     void setCurrentFrame(qreal);
 
+    void reevaulate();
+
     void init();
     void reset();
 
