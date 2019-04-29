@@ -31,6 +31,7 @@
 
 #include "qquicktimeline_p.h"
 
+#include <Qtcore/qdebug.h>
 #include <QtCore/QVariantAnimation>
 #include <QtCore/qmath.h>
 #include <QtGui/qpainter.h>
@@ -56,6 +57,7 @@ public:
     QObject *target;
     QString propertyName;
     bool componentComplete;
+    int userType = -1;
 
 protected:
     void setupKeyframes();
@@ -227,7 +229,7 @@ QVariant QQuickKeyframeGroup::evaluate(qreal frame) const
 
     for (auto keyFrame :  qAsConst(d->sortedKeyframes)) {
         if (qFuzzyCompare(frame, keyFrame->frame()) || frame < keyFrame->frame())
-            return keyFrame->evaluate(lastFrame, frame, QQmlProperty(target(), property()).property().userType());
+            return keyFrame->evaluate(lastFrame, frame, d->userType);
         lastFrame = keyFrame;
     }
 
@@ -239,15 +241,25 @@ void QQuickKeyframeGroup::setProperty(qreal frame)
     if (target()) {
         QQmlProperty qmlProperty(target(), property());
 
-        qmlProperty.write(evaluate(frame));
+        if (!qmlProperty.write(evaluate(frame)))
+            qWarning() << "Cannot set property" << property();
     }
 }
 
 void QQuickKeyframeGroup::init()
 {
     Q_D(QQuickKeyframeGroup);
-    if (target())
+    if (target()) {
         d->originalValue = QQmlProperty::read(target(), property());
+        d->userType = QQmlProperty(target(), property()).property().userType();
+        if (property().contains(QLatin1Char('.'))) {
+            if (d->userType == QMetaType::QVector2D
+                    || d->userType == QMetaType::QVector3D
+                    || d->userType == QMetaType::QVector4D
+                    || d->userType == QMetaType::QQuaternion)
+                d->userType = QMetaType::Double;
+        }
+    }
 }
 
 void QQuickKeyframeGroup::resetDefaultValue()
@@ -350,7 +362,7 @@ QVariant QQuickKeyframe::evaluate(QQuickKeyframe *pre, qreal frametime, int user
     if (preValue.isValid() && convertedValue.isValid())
         return interpolator(preValue.constData(), convertedValue.constData(), progress);
 
-    qWarning() << "invalid keyframe target";
+    qWarning() << "invalid keyframe target" << preValue << convertedValue << userType;
 
     return QVariant();
 }
