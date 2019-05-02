@@ -31,7 +31,7 @@
 
 #include "qquicktimeline_p.h"
 
-#include <Qtcore/qdebug.h>
+#include <QtCore/qdebug.h>
 #include <QtCore/QVariantAnimation>
 #include <QtCore/qmath.h>
 #include <QtGui/qpainter.h>
