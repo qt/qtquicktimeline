@@ -143,6 +143,74 @@ void QQuickTimelinePrivate::clear_animations(QQmlListProperty<QQuickTimelineAnim
     }
 }
 
+/*!
+    \qmltype Timeline
+    \inherits QObject
+    \instantiates QQuickTimeline
+    \inqmlmodule QtQuick.Timeline
+    \ingroup qtqmltypes
+
+    \brief A timeline.
+
+    Specifies a timeline with a range of keyframes that contain values for the
+    properties of an object. The timeline allows specifying the values of items
+    depending on keyframes and their easing curves.
+
+    A timeline can be either used for animations or to control the behavior of
+    items.
+
+    For example, it is possible to create a progress bar where the current frame
+    reflects the progress.
+*/
+
+/*!
+    \qmlproperty double Timeline::startFrame
+
+    The start of the timeline.
+*/
+
+/*!
+    \qmlproperty double Timeline::endFrame
+
+    The end of the timeline.
+*/
+
+/*!
+    \qmlproperty double Timeline::currentFrame
+
+    The current keyframe on the timeline. The current keyframe can be animated
+    or a binding can be attached to it. Using bindings allows controlling
+    the behavior of components.
+*/
+
+/*!
+    \qmlproperty list Timeline::keyframes
+    \readonly
+
+    This property contains the keyframe groups attached to the timeline.
+    Each keyframe group contains a list of keyframes for a specific item
+    and property.
+*/
+
+/*!
+    \qmlproperty list Timeline::animations
+    \readonly
+
+    A list of animations attached to the timeline.
+*/
+
+/*!
+    \qmlproperty bool Timeline::enabled
+
+    Whether the timeline is enabled.
+
+    When the timeline is disabled, all items will have their regular values.
+    When the timeline is enabled, the values of items are determined by the
+    current frame and the keyframes.
+
+    Only one timeline should be active at a particular time.
+*/
+
 QQuickTimeline::QQuickTimeline(QObject *parent) : QObject(*(new QQuickTimelinePrivate), parent)
 {
 

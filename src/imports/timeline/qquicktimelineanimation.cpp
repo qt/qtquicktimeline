@@ -38,6 +38,32 @@
 
 QT_BEGIN_NAMESPACE
 
+/*!
+    \qmltype TimelineAnimation
+    \inherits QQuickNumberAnimation
+    \instantiates QQuickTimelineAnimation
+    \inqmlmodule QtQuick.Timeline
+    \ingroup qtqmltypes
+
+    \brief A number animation attached to a timeline.
+
+    Specifies how the current frame property of a timeline is animated. This
+    animates the properties of the objects targeted by the timeline.
+*/
+
+/*!
+    \qmlproperty bool TimelineAnimation::pingPong
+
+    Whether the animation is played backwards after it finishes. This is an easy
+    way to create circular animations.
+*/
+
+/*!
+    \qmlsignal TimelineAnimation::finished
+
+    This signal is emitted when the timeline animation finishes.
+*/
+
 QQuickTimelineAnimation::QQuickTimelineAnimation(QObject *parent) : QQuickNumberAnimation(parent)
 {
     setProperty(QLatin1String("currentFrame"));
