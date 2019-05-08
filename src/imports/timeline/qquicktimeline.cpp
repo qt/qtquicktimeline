@@ -64,13 +64,13 @@ protected:
     static QQuickTimelineAnimation* animation_at(QQmlListProperty<QQuickTimelineAnimation> *list, int pos);
     static void clear_animations(QQmlListProperty<QQuickTimelineAnimation> *list);
 
-    QList<QQuickKeyframeGroup *> keyframes;
+    QList<QQuickKeyframeGroup *> keyframeGroups;
     QList<QQuickTimelineAnimation *> animations;
 };
 
 void QQuickTimelinePrivate::init()
 {
-    for (auto keyFrames : keyframes) {
+    for (auto keyFrames : keyframeGroups) {
         keyFrames->init();
         keyFrames->setProperty(currentFrame);
     }
@@ -78,34 +78,34 @@ void QQuickTimelinePrivate::init()
 
 void QQuickTimelinePrivate::disable()
 {
-    for (auto keyFrames : keyframes)
+    for (auto keyFrames : keyframeGroups)
         keyFrames->resetDefaultValue();
 }
 
 void QQuickTimelinePrivate::append_keyframe(QQmlListProperty<QQuickKeyframeGroup> *list, QQuickKeyframeGroup *a)
 {
     auto q = static_cast<QQuickTimeline *>(list->object);
-    q->d_func()->keyframes.append(a);
+    q->d_func()->keyframeGroups.append(a);
 }
 
 int QQuickTimelinePrivate::keyframe_count(QQmlListProperty<QQuickKeyframeGroup> *list)
 {
     auto q = static_cast<QQuickTimeline *>(list->object);
-    return q->d_func()->keyframes.count();
+    return q->d_func()->keyframeGroups.count();
 }
 
 QQuickKeyframeGroup* QQuickTimelinePrivate::keyframe_at(QQmlListProperty<QQuickKeyframeGroup> *list, int pos)
 {
     auto q = static_cast<QQuickTimeline *>(list->object);
-    return q->d_func()->keyframes.at(pos);
+    return q->d_func()->keyframeGroups.at(pos);
 }
 
 void QQuickTimelinePrivate::clear_keyframes(QQmlListProperty<QQuickKeyframeGroup> *list)
 {
     auto q = static_cast<QQuickTimeline *>(list->object);
-    while (q->d_func()->keyframes.count()) {
-        QQuickKeyframeGroup *firstKeyframe = q->d_func()->keyframes.at(0);
-        q->d_func()->keyframes.removeAll(firstKeyframe);
+    while (q->d_func()->keyframeGroups.count()) {
+        QQuickKeyframeGroup *firstKeyframe = q->d_func()->keyframeGroups.at(0);
+        q->d_func()->keyframeGroups.removeAll(firstKeyframe);
     }
 }
 
@@ -207,14 +207,13 @@ void QQuickTimelinePrivate::clear_animations(QQmlListProperty<QQuickTimelineAnim
 
 QQuickTimeline::QQuickTimeline(QObject *parent) : QObject(*(new QQuickTimelinePrivate), parent)
 {
-
 }
 
-QQmlListProperty<QQuickKeyframeGroup> QQuickTimeline::keyframes()
+QQmlListProperty<QQuickKeyframeGroup> QQuickTimeline::keyframeGroups()
 {
     Q_D(QQuickTimeline);
 
-    return { this, &d->keyframes, QQuickTimelinePrivate::append_keyframe,
+    return { this, &d->keyframeGroups, QQuickTimelinePrivate::append_keyframe,
                 QQuickTimelinePrivate::keyframe_count,
                 QQuickTimelinePrivate::keyframe_at,
                 QQuickTimelinePrivate::clear_keyframes };
@@ -306,7 +305,7 @@ void QQuickTimeline::reevaulate()
     Q_D(QQuickTimeline);
 
     if (d->componentComplete && d->enabled)
-        for (auto keyFrames : d->keyframes)
+        for (auto keyFrames : d->keyframeGroups)
             keyFrames->setProperty(d->currentFrame);
 }
 
