@@ -41,7 +41,7 @@ class QQuickTimelineAnimation : public QQuickNumberAnimation
     Q_PROPERTY(bool pingPong READ pingPong WRITE setPingPong NOTIFY pingPongChanged)
 
 public:
-    QQuickTimelineAnimation(QObject *parent = nullptr);
+    explicit QQuickTimelineAnimation(QObject *parent = nullptr);
 
     void setPingPong(bool b);
     bool pingPong() const;
