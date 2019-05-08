@@ -72,7 +72,7 @@ public:
     void setEasing(const QEasingCurve &);
 
     QVariant value() const;
-    void setValue(QVariant);
+    void setValue(const QVariant &v);
 
     virtual QVariant evaluate(QQuickKeyframe *pre, qreal frame, int userType) const;
 

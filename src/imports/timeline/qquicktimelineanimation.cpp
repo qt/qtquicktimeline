@@ -87,7 +87,7 @@ bool QQuickTimelineAnimation::pingPong() const
 
 void QQuickTimelineAnimation::handleStarted()
 {
-    QQuickTimeline* timeline = qobject_cast<QQuickTimeline*>(parent());
+    auto timeline = qobject_cast<QQuickTimeline*>(parent());
 
     if (!timeline)
         return;

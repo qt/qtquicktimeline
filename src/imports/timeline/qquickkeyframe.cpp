@@ -48,15 +48,11 @@ class QQuickKeyframeGroupPrivate : public QObjectPrivate
 {
     Q_DECLARE_PUBLIC(QQuickKeyframeGroup)
 public:
-    QQuickKeyframeGroupPrivate()
-        : target(nullptr),
-          componentComplete(false)
-    {
-    }
+    QQuickKeyframeGroupPrivate() = default;
 
-    QObject *target;
+    QObject *target = nullptr;
     QString propertyName;
-    bool componentComplete;
+    bool componentComplete = false;
     int userType = -1;
 
 protected:
@@ -83,7 +79,7 @@ void QQuickKeyframeGroupPrivate::setupKeyframes()
 
 void QQuickKeyframeGroupPrivate::append_keyframe(QQmlListProperty<QQuickKeyframe> *list, QQuickKeyframe *a)
 {
-    QQuickKeyframeGroup *q = static_cast<QQuickKeyframeGroup *>(list->object);
+    auto q = static_cast<QQuickKeyframeGroup *>(list->object);
     q->d_func()->keyframes.append(a);
     q->d_func()->setupKeyframes();
     q->reset();
@@ -91,19 +87,19 @@ void QQuickKeyframeGroupPrivate::append_keyframe(QQmlListProperty<QQuickKeyframe
 
 int QQuickKeyframeGroupPrivate::keyframe_count(QQmlListProperty<QQuickKeyframe> *list)
 {
-    QQuickKeyframeGroup *q = static_cast<QQuickKeyframeGroup *>(list->object);
+    auto q = static_cast<QQuickKeyframeGroup *>(list->object);
     return q->d_func()->keyframes.count();
 }
 
 QQuickKeyframe* QQuickKeyframeGroupPrivate::keyframe_at(QQmlListProperty<QQuickKeyframe> *list, int pos)
 {
-    QQuickKeyframeGroup *q = static_cast<QQuickKeyframeGroup *>(list->object);
+    auto q = static_cast<QQuickKeyframeGroup *>(list->object);
     return q->d_func()->keyframes.at(pos);
 }
 
 void QQuickKeyframeGroupPrivate::clear_keyframes(QQmlListProperty<QQuickKeyframe> *list)
 {
-    QQuickKeyframeGroup *q = static_cast<QQuickKeyframeGroup *>(list->object);
+    auto q = static_cast<QQuickKeyframeGroup *>(list->object);
     while (q->d_func()->keyframes.count()) {
         QQuickKeyframe *firstKeyframe = q->d_func()->keyframes.at(0);
         q->d_func()->keyframes.removeAll(firstKeyframe);
@@ -114,12 +110,9 @@ class QQuickKeyframePrivate : public QObjectPrivate
 {
     Q_DECLARE_PUBLIC(QQuickKeyframe)
 public:
-    QQuickKeyframePrivate()
-        : frame(0)
-    {
-    }
+    QQuickKeyframePrivate() = default;
 
-    qreal frame;
+    qreal frame = 0;
     QEasingCurve easingCurve;
     QVariant value;
 };
@@ -186,7 +179,7 @@ void QQuickKeyframe::setFrame(qreal f)
 
 void QQuickKeyframe::reset()
 {
-    QQuickKeyframeGroup *keyframes = qobject_cast<QQuickKeyframeGroup*>(parent());
+    auto keyframes = qobject_cast<QQuickKeyframeGroup*>(parent());
     if (keyframes)
         keyframes->reset();
 }
@@ -239,10 +232,10 @@ QQmlListProperty<QQuickKeyframe> QQuickKeyframeGroup::keyframes()
 {
     Q_D(QQuickKeyframeGroup);
 
-    return QQmlListProperty<QQuickKeyframe>(this, &d->keyframes, QQuickKeyframeGroupPrivate::append_keyframe,
-                                            QQuickKeyframeGroupPrivate::keyframe_count,
-                                            QQuickKeyframeGroupPrivate::keyframe_at,
-                                            QQuickKeyframeGroupPrivate::clear_keyframes);
+    return { this, &d->keyframes, QQuickKeyframeGroupPrivate::append_keyframe,
+                QQuickKeyframeGroupPrivate::keyframe_count,
+                QQuickKeyframeGroupPrivate::keyframe_at,
+                QQuickKeyframeGroupPrivate::clear_keyframes };
 }
 
 QObject *QQuickKeyframeGroup::target() const
@@ -291,7 +284,7 @@ QVariant QQuickKeyframeGroup::evaluate(qreal frame) const
         return QVariant();
 
     static QQuickKeyframe dummy;
-    QQuickTimeline *timeline = qobject_cast<QQuickTimeline*>(parent());
+    auto timeline = qobject_cast<QQuickTimeline*>(parent());
     if (timeline)
         dummy.setFrame(timeline->startFrame() - 0.0001);
     dummy.setValue(d->originalValue);
@@ -393,7 +386,7 @@ QVariant QQuickKeyframe::value() const
     return d->value;
 }
 
-void QQuickKeyframe::setValue(QVariant v)
+void QQuickKeyframe::setValue(const QVariant &v)
 {
     Q_D(QQuickKeyframe);
     if (d->value == v)
