@@ -123,9 +123,8 @@ void QQuickTimelineAnimation::handleStopped()
 
     auto *privateObject = static_cast<QQuickPropertyAnimationPrivate*>(QObjectPrivate::get(this));
 
-    if (m_reversed) {
+    if (m_reversed)
         m_currentLoop++;
-    }
 
     if (!(privateObject->animationInstance->currentTime() < privateObject->duration)
             && (m_currentLoop < m_originalLoop
@@ -136,9 +135,9 @@ void QQuickTimelineAnimation::handleStopped()
         QQuickTimelineAnimation::start();
 
     } else {
-        if (m_reversed) {
+        if (m_reversed)
             swapStartEnd(privateObject);
-        }
+
         m_originalStart = true;
         m_reversed = false;
         privateObject->loopCount = m_originalLoop;

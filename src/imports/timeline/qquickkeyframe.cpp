@@ -159,7 +159,6 @@ public:
 QQuickKeyframe::QQuickKeyframe(QObject *parent)
     : QObject(*(new QQuickKeyframePrivate), parent)
 {
-
 }
 
 qreal QQuickKeyframe::frame() const
@@ -187,7 +186,6 @@ void QQuickKeyframe::reset()
 QQuickKeyframe::QQuickKeyframe(QQuickKeyframePrivate &dd, QObject *parent)
     : QObject(dd, parent)
 {
-
 }
 
 /*!
