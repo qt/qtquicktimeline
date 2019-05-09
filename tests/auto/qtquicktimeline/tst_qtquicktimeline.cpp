@@ -132,7 +132,7 @@ void Tst_QtQuickTimeline::simpleTest()
     animation->setProperty("running", true);
     QCOMPARE(animation->property("running").toBool(), true);
 
-    QTest::qWait(220);
+    QTest::qWait(300);
 
     animation->setProperty("running", false);
     QCOMPARE(timeline->property("currentFrame").toInt(), 100);
