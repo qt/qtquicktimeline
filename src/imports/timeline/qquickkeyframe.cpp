@@ -173,6 +173,9 @@ void QQuickKeyframe::setFrame(qreal f)
     if (d->frame == f)
         return;
     d->frame = f;
+
+    reset();
+
     emit frameChanged();
 }
 
@@ -375,6 +378,9 @@ void QQuickKeyframe::setEasing(const QEasingCurve &e)
         return;
 
     d->easingCurve = e;
+
+    reset();
+
     emit easingCurveChanged();
 }
 

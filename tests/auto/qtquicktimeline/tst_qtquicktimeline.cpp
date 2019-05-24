@@ -355,6 +355,13 @@ void Tst_QtQuickTimeline::keyframeUpdate()
     keyframe->setProperty("value", 90);
     QCOMPARE(keyframe->property("value").toInt(), 90);
     QCOMPARE(rectangle->property("x").toInt(), 90);
+
+    timeline->setProperty("currentFrame", 60);
+    QCOMPARE(timeline->property("currentFrame").toInt(), 60);
+
+    QVERIFY(rectangle->property("x").toInt() != 90);
+    keyframe->setProperty("frame", 60);
+    QCOMPARE(rectangle->property("x").toInt(), 90);
 }
 
 void Tst_QtQuickTimeline::easingcurveInterpolation()
