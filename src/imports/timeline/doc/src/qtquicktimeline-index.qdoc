@@ -32,14 +32,13 @@
     user interfaces.
 
     The Qt Quick Timeline module enables keyframe-based animations and
-    parameterization. It takes a tooling-friendly approach, and is therefore
-    directly supported by Qt Design Studio and Qt Quick Designer that
-    contain a timeline editor for creating keyframe based animations.
+    parameterization. This module is directly supported by Qt Design Studio and
+    Qt Quick Designer, with a timeline editor to create keyframe-based animations.
 
     \section1 Getting Started
 
     To import the QML types into your application, use the following import
-    statement in your .qml file:
+    statement in your \c{.qml} file:
 
     \code
     import QtQuick.Timeline 1.0
