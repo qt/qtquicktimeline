@@ -1,4 +1,5 @@
 HEADERS += \
+    $$PWD/keyframedatautils_p.h \
     $$PWD/qquickkeyframe_p.h \
     $$PWD/qquicktimeline_p.h \
     $$PWD/qquicktimelineanimation_p.h

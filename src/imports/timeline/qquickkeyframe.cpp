@@ -30,6 +30,7 @@
 #include "qquickkeyframe_p.h"
 
 #include "qquicktimeline_p.h"
+#include "keyframedatautils_p.h"
 
 #include <QtCore/qdebug.h>
 #include <QtCore/QVariantAnimation>
@@ -37,6 +38,9 @@
 #include <QtGui/qpainter.h>
 #include <QtQuick/private/qquickitem_p.h>
 #include <QtQml/QQmlProperty>
+#include <QtQml/QQmlFile>
+#include <QtCore/QFile>
+#include <QtCore/QCborStreamReader>
 
 #include <private/qvariantanimation_p.h>
 
@@ -52,11 +56,13 @@ public:
 
     QObject *target = nullptr;
     QString propertyName;
+    QUrl keyframeSource;
     bool componentComplete = false;
     int userType = -1;
 
 protected:
     void setupKeyframes();
+    void loadKeyframes();
 
     static void append_keyframe(QQmlListProperty<QQuickKeyframe> *list, QQuickKeyframe *a);
     static int keyframe_count(QQmlListProperty<QQuickKeyframe> *list);
@@ -75,6 +81,55 @@ void QQuickKeyframeGroupPrivate::setupKeyframes()
     std::sort(sortedKeyframes.begin(), sortedKeyframes.end(), [](const QQuickKeyframe *first, const QQuickKeyframe *second) {
         return first->frame() < second->frame();
     });
+}
+
+void QQuickKeyframeGroupPrivate::loadKeyframes()
+{
+    Q_Q(QQuickKeyframeGroup);
+    QString dataFilePath = QQmlFile::urlToLocalFileOrQrc(keyframeSource);
+    QFile dataFile(dataFilePath);
+    if (!dataFile.open(QIODevice::ReadOnly)) {
+        // Invalid file
+        qWarning() << "Unable to open keyframeSource:" << dataFilePath;
+        qDeleteAll(keyframes);
+        keyframes.clear();
+        return;
+    }
+
+    QCborStreamReader reader(&dataFile);
+
+    // Check that file is standard keyframes CBOR and get the version
+    int version = readKeyframesHeader(reader);
+
+    if (version == -1) {
+        // Invalid file
+        qWarning() << "Invalid keyframeSource version:" << version;
+        return;
+    }
+
+    QMetaType::Type propertyType;
+    if (reader.isInteger()) {
+        propertyType = static_cast<QMetaType::Type>(reader.toInteger());
+        reader.next();
+    }
+
+    // Start keyframes array
+    reader.enterContainer();
+
+    while (reader.lastError() == QCborError::NoError && reader.hasNext()) {
+        auto keyframe = new QQuickKeyframe(q);
+        keyframe->setFrame(readReal(reader));
+        keyframe->setEasing(QEasingCurve(static_cast<QEasingCurve::Type>(reader.toInteger())));
+        reader.next();
+        keyframe->setValue(readValue(reader, propertyType));
+        keyframes.append(keyframe);
+    }
+    // Leave keyframes array
+    reader.leaveContainer();
+
+    // Leave root array
+    reader.leaveContainer();
+
 }
 
 void QQuickKeyframeGroupPrivate::append_keyframe(QQmlListProperty<QQuickKeyframe> *list, QQuickKeyframe *a)
@@ -223,6 +278,17 @@ QQuickKeyframe::QQuickKeyframe(QQuickKeyframePrivate &dd, QObject *parent)
     A list of keyframes that belong to the keyframe group.
 */
 
+/*!
+    \qmlproperty url KeyframeGroup::keyframeSource
+
+    The URL to a file containing binary keyframe data.
+
+    \note KeyframeGroup should either set this property or contain
+    Keyframe child elements. Using both can lead to an undefined behavior.
+
+    \since 1.1
+*/
+
 QQuickKeyframeGroup::QQuickKeyframeGroup(QObject *parent)
     : QObject(*(new QQuickKeyframeGroupPrivate), parent)
 {
@@ -275,6 +341,32 @@ void QQuickKeyframeGroup::setProperty(const QString &n)
         init();
 
     emit propertyChanged();
+}
+
+QUrl QQuickKeyframeGroup::keyframeSource() const
+{
+    Q_D(const QQuickKeyframeGroup);
+    return d->keyframeSource;
+}
+
+void QQuickKeyframeGroup::setKeyframeSource(const QUrl &source)
+{
+    Q_D(QQuickKeyframeGroup);
+    if (d->keyframeSource == source)
+        return;
+
+    if (!d->keyframeSource.isEmpty()) {
+        // Remove possible previously loaded keyframes
+        qDeleteAll(d->keyframes);
+        d->keyframes.clear();
+    }
+
+    d->keyframeSource = source;
+    d->loadKeyframes();
+    d->setupKeyframes();
+    reset();
+
+    emit keyframeSourceChanged();
 }
 
 QVariant QQuickKeyframeGroup::evaluate(qreal frame) const
@@ -341,7 +433,7 @@ void QQuickKeyframeGroup::reset()
 
     auto *timeline = qobject_cast<QQuickTimeline*>(parent());
     if (timeline)
-        timeline->reevaulate();
+        timeline->reevaluate();
 }
 
 void QQuickKeyframeGroup::setupKeyframes()

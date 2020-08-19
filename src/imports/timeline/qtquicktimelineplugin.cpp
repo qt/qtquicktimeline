@@ -56,6 +56,8 @@ void QtQuickTimelinePlugin::registerTypes(const char *uri)
     qmlRegisterType<QQuickTimelineAnimation>(uri, 1, 0, "TimelineAnimation");
     qmlRegisterType<QQuickKeyframe>(uri, 1, 0, "Keyframe");
     qmlRegisterType<QQuickKeyframeGroup>(uri, 1, 0, "KeyframeGroup");
+
+    qmlRegisterType<QQuickKeyframeGroup, 1>(uri, 1, 1, "KeyframeGroup");
 }
 
 void QtQuickTimelinePlugin::initializeEngine(QQmlEngine *engine, const char *uri)

@@ -15,6 +15,7 @@ qt_add_qml_module(qtquicktimelineplugin
         qquicktimeline.cpp qquicktimeline_p.h
         qquicktimelineanimation.cpp qquicktimelineanimation_p.h
         qtquicktimelineplugin.cpp
+        keyframedatautils_p.h
     DEFINES
         QT_NO_CAST_FROM_ASCII
         QT_NO_CAST_TO_ASCII

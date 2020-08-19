@@ -95,6 +95,7 @@ class QQuickKeyframeGroup : public QObject, public QQmlParserStatus
     Q_PROPERTY(QObject *target READ target WRITE setTargetObject NOTIFY targetChanged)
     Q_PROPERTY(QString property READ property WRITE setProperty NOTIFY propertyChanged)
     Q_PROPERTY(QQmlListProperty<QQuickKeyframe> keyframes READ keyframes)
+    Q_PROPERTY(QUrl keyframeSource READ keyframeSource WRITE setKeyframeSource NOTIFY keyframeSourceChanged REVISION 1)
 
     Q_CLASSINFO("DefaultProperty", "keyframes")
 
@@ -108,6 +109,9 @@ public:
 
     QString property() const;
     void setProperty(const QString &);
+
+    Q_REVISION(1) QUrl keyframeSource() const;
+    Q_REVISION(1) void setKeyframeSource(const QUrl &source);
 
     QVariant evaluate(qreal frame) const;
 
@@ -128,6 +132,7 @@ protected:
 Q_SIGNALS:
     void targetChanged();
     void propertyChanged();
+    Q_REVISION(1) void keyframeSourceChanged();
 };
 
 QT_END_NAMESPACE

@@ -295,12 +295,12 @@ void QQuickTimeline::setCurrentFrame(qreal frame)
         return;
     d->currentFrame = frame;
 
-    reevaulate();
+    reevaluate();
 
     emit currentFrameChanged();
 }
 
-void QQuickTimeline::reevaulate()
+void QQuickTimeline::reevaluate()
 {
     Q_D(QQuickTimeline);
 

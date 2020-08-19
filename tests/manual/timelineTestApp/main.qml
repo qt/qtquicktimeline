@@ -43,9 +43,9 @@ Window {
     }
 
     Row {
-        x: 8
-        y: 457
-
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 10
+        spacing: 4
         Text {
             text: "Test 01"
             font.pixelSize: 12
@@ -124,6 +124,15 @@ Window {
             MouseArea {
                 anchors.fill: parent
                 onClicked: loader.source = "test09.qml"
+            }
+        }
+
+        Text {
+            text: "Test 10"
+            font.pixelSize: 12
+            MouseArea {
+                anchors.fill: parent
+                onClicked: loader.source = "test10.qml"
             }
         }
     }
