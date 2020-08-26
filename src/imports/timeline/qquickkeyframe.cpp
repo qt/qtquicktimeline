@@ -39,6 +39,8 @@
 #include <QtQuick/private/qquickitem_p.h>
 #include <QtQml/QQmlProperty>
 #include <QtQml/QQmlFile>
+#include <QtQml/QQmlContext>
+#include <QtQml/QQmlEngine>
 #include <QtCore/QFile>
 #include <QtCore/QCborStreamReader>
 
@@ -86,7 +88,14 @@ void QQuickKeyframeGroupPrivate::setupKeyframes()
 void QQuickKeyframeGroupPrivate::loadKeyframes()
 {
     Q_Q(QQuickKeyframeGroup);
-    QString dataFilePath = QQmlFile::urlToLocalFileOrQrc(keyframeSource);
+
+    // Resolve URL similar to QQuickImage source
+    QUrl loadUrl = keyframeSource;
+    QQmlContext *context = qmlContext(q);
+    if (context)
+        loadUrl = context->resolvedUrl(keyframeSource);
+    QString dataFilePath = QQmlFile::urlToLocalFileOrQrc(loadUrl);
+
     QFile dataFile(dataFilePath);
     if (!dataFile.open(QIODevice::ReadOnly)) {
         // Invalid file
