@@ -116,7 +116,7 @@ void QQuickKeyframeGroupPrivate::loadKeyframes()
         return;
     }
 
-    QMetaType::Type propertyType;
+    QMetaType::Type propertyType = QMetaType::UnknownType;
     if (reader.isInteger()) {
         propertyType = static_cast<QMetaType::Type>(reader.toInteger());
         reader.next();
