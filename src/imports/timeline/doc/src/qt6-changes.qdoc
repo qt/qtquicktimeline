@@ -1,6 +1,6 @@
 /****************************************************************************
 **
-** Copyright (C) 2019 The Qt Company Ltd.
+** Copyright (C) 2020 The Qt Company Ltd.
 ** Contact: https://www.qt.io/licensing/
 **
 ** This file is part of the documentation of the Qt Toolkit.
@@ -26,37 +26,21 @@
 ****************************************************************************/
 
 /*!
-    \page qtquicktimeline-index.html
-    \title Qt Quick Timeline
-    \brief Provides QML types to use timelines and keyframes to animate Qt Quick
-    user interfaces.
+    \page qtquicktimeline-changes-qt6.html
+    \title Porting to Qt 6 - Qt Quick Timeline
+    \ingroup porting-guides-5-to-6
+    \brief Migrate Qt Quick Timeline to Qt 6.
 
-    The Qt Quick Timeline module enables keyframe-based animations and
-    parameterization. This module is directly supported by Qt Design Studio and
-    Qt Quick Designer, with a timeline editor to create keyframe-based animations.
+    Qt 6 is a result of the conscious effort to make the framework more
+    efficient and easy to use.
 
-    \section1 Getting Started
+    We try to maintain binary and source compatibility for all the public
+    APIs in each release. But some changes were inevitable in an effort to
+    make Qt a better framework.
 
-    To import the QML types into your application, use the following import
-    statement in your \c{.qml} file:
+    In this topic we summarize those changes in Qt Quick Timeline, and provide
+    guidance to handle them.
 
-    \code
-    import QtQuick.Timeline 1.0
-    \endcode
+    \section1 ADD STUFF HERE
 
-    \section1 Articles and Guides
-
-    \list
-        \li \l{Qt Quick Timeline Overview}{Overview}
-    \endlist
-
-    \section1 Reference
-
-    \list
-         \li \l{Qt Quick Timeline QML Types}{QML Types}
-    \endlist
-
-    \section1 Module Evolution
-    \l{Porting to Qt 6 - Qt Quick Timeline} lists important changes in the
-    module API and functionality that were done for the Qt 6 series of Qt.
 */
