@@ -4,18 +4,18 @@
 ## qtquicktimelineplugin Plugin:
 #####################################################################
 
-qt_add_qml_module(qtquicktimelineplugin
+qt_internal_add_qml_module(qtquicktimelineplugin
     URI "QtQuick.Timeline"
     VERSION "1.0"
     DESIGNER_SUPPORTED
     CLASSNAME QtQuickTimelinePlugin
     SKIP_TYPE_REGISTRATION
     SOURCES
+        keyframedatautils_p.h
         qquickkeyframe.cpp qquickkeyframe_p.h
         qquicktimeline.cpp qquicktimeline_p.h
         qquicktimelineanimation.cpp qquicktimelineanimation_p.h
         qtquicktimelineplugin.cpp
-        keyframedatautils_p.h
     DEFINES
         QT_NO_CAST_FROM_ASCII
         QT_NO_CAST_TO_ASCII
@@ -36,7 +36,7 @@ qt_add_qml_module(qtquicktimelineplugin
 # DISTFILES = "qmldir" "plugins.qmltypes"
 # IMPORT_VERSION = "1.0"
 # TARGETPATH = "QtQuick/Timeline"
-qt_add_docs(qtquicktimelineplugin
+qt_internal_add_docs(qtquicktimelineplugin
     doc/qtquicktimeline.qdocconf
 )
 
