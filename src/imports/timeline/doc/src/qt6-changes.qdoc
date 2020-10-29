@@ -38,9 +38,5 @@
     APIs in each release. But some changes were inevitable in an effort to
     make Qt a better framework.
 
-    In this topic we summarize those changes in Qt Quick Timeline, and provide
-    guidance to handle them.
-
-    \section1 ADD STUFF HERE
-
+    When using the Qt Quick Timeline there are no code changes required when porting to Qt 6.
 */
