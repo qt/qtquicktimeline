@@ -55,13 +55,13 @@ protected:
     void disable();
 
     static void append_keyframe(QQmlListProperty<QQuickKeyframeGroup> *list, QQuickKeyframeGroup *a);
-    static int keyframe_count(QQmlListProperty<QQuickKeyframeGroup> *list);
-    static QQuickKeyframeGroup* keyframe_at(QQmlListProperty<QQuickKeyframeGroup> *list, int pos);
+    static qsizetype keyframe_count(QQmlListProperty<QQuickKeyframeGroup> *list);
+    static QQuickKeyframeGroup* keyframe_at(QQmlListProperty<QQuickKeyframeGroup> *list, qsizetype pos);
     static void clear_keyframes(QQmlListProperty<QQuickKeyframeGroup> *list);
 
     static void append_animation(QQmlListProperty<QQuickTimelineAnimation> *list, QQuickTimelineAnimation *a);
-    static int animation_count(QQmlListProperty<QQuickTimelineAnimation> *list);
-    static QQuickTimelineAnimation* animation_at(QQmlListProperty<QQuickTimelineAnimation> *list, int pos);
+    static qsizetype animation_count(QQmlListProperty<QQuickTimelineAnimation> *list);
+    static QQuickTimelineAnimation* animation_at(QQmlListProperty<QQuickTimelineAnimation> *list, qsizetype pos);
     static void clear_animations(QQmlListProperty<QQuickTimelineAnimation> *list);
 
     QList<QQuickKeyframeGroup *> keyframeGroups;
@@ -88,13 +88,13 @@ void QQuickTimelinePrivate::append_keyframe(QQmlListProperty<QQuickKeyframeGroup
     q->d_func()->keyframeGroups.append(a);
 }
 
-int QQuickTimelinePrivate::keyframe_count(QQmlListProperty<QQuickKeyframeGroup> *list)
+qsizetype QQuickTimelinePrivate::keyframe_count(QQmlListProperty<QQuickKeyframeGroup> *list)
 {
     auto q = static_cast<QQuickTimeline *>(list->object);
     return q->d_func()->keyframeGroups.count();
 }
 
-QQuickKeyframeGroup* QQuickTimelinePrivate::keyframe_at(QQmlListProperty<QQuickKeyframeGroup> *list, int pos)
+QQuickKeyframeGroup* QQuickTimelinePrivate::keyframe_at(QQmlListProperty<QQuickKeyframeGroup> *list, qsizetype pos)
 {
     auto q = static_cast<QQuickTimeline *>(list->object);
     return q->d_func()->keyframeGroups.at(pos);
@@ -116,13 +116,13 @@ void QQuickTimelinePrivate::append_animation(QQmlListProperty<QQuickTimelineAnim
     q->d_func()->animations.append(a);
 }
 
-int QQuickTimelinePrivate::animation_count(QQmlListProperty<QQuickTimelineAnimation> *list)
+qsizetype QQuickTimelinePrivate::animation_count(QQmlListProperty<QQuickTimelineAnimation> *list)
 {
     auto q = static_cast<QQuickTimeline *>(list->object);
     return q->d_func()->animations.count();
 }
 
-QQuickTimelineAnimation* QQuickTimelinePrivate::animation_at(QQmlListProperty<QQuickTimelineAnimation> *list, int pos)
+QQuickTimelineAnimation* QQuickTimelinePrivate::animation_at(QQmlListProperty<QQuickTimelineAnimation> *list, qsizetype pos)
 {
     auto q = static_cast<QQuickTimeline *>(list->object);
     return q->d_func()->animations.at(pos);

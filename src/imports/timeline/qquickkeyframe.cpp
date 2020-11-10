@@ -67,8 +67,8 @@ protected:
     void loadKeyframes();
 
     static void append_keyframe(QQmlListProperty<QQuickKeyframe> *list, QQuickKeyframe *a);
-    static int keyframe_count(QQmlListProperty<QQuickKeyframe> *list);
-    static QQuickKeyframe* keyframe_at(QQmlListProperty<QQuickKeyframe> *list, int pos);
+    static qsizetype keyframe_count(QQmlListProperty<QQuickKeyframe> *list);
+    static QQuickKeyframe* keyframe_at(QQmlListProperty<QQuickKeyframe> *list, qsizetype pos);
     static void clear_keyframes(QQmlListProperty<QQuickKeyframe> *list);
 
     QList<QQuickKeyframe *> keyframes;
@@ -149,13 +149,13 @@ void QQuickKeyframeGroupPrivate::append_keyframe(QQmlListProperty<QQuickKeyframe
     q->reset();
 }
 
-int QQuickKeyframeGroupPrivate::keyframe_count(QQmlListProperty<QQuickKeyframe> *list)
+qsizetype QQuickKeyframeGroupPrivate::keyframe_count(QQmlListProperty<QQuickKeyframe> *list)
 {
     auto q = static_cast<QQuickKeyframeGroup *>(list->object);
     return q->d_func()->keyframes.count();
 }
 
-QQuickKeyframe* QQuickKeyframeGroupPrivate::keyframe_at(QQmlListProperty<QQuickKeyframe> *list, int pos)
+QQuickKeyframe* QQuickKeyframeGroupPrivate::keyframe_at(QQmlListProperty<QQuickKeyframe> *list, qsizetype pos)
 {
     auto q = static_cast<QQuickKeyframeGroup *>(list->object);
     return q->d_func()->keyframes.at(pos);
