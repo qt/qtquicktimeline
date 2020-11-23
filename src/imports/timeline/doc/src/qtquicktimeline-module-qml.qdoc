@@ -1,6 +1,6 @@
 /****************************************************************************
 **
-** Copyright (C) 2019 The Qt Company Ltd.
+** Copyright (C) 2020 The Qt Company Ltd.
 ** Contact: https://www.qt.io/licensing/
 **
 ** This file is part of the documentation of the Qt Toolkit.
@@ -36,6 +36,6 @@
     statement in your .qml file:
 
     \qml
-    import QtQuick.Timeline 1.0
+    import QtQuick.Timeline
     \endqml
 */
