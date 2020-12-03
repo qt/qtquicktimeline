@@ -231,8 +231,8 @@ void writeKeyframesHeader(QCborStreamWriter &writer, QMetaType::Type type, int v
 // Write QVariant value into CBOR in correct type.
 void writeValue(QCborStreamWriter &writer, const QVariant &value)
 {
-    QMetaType::Type type = static_cast<QMetaType::Type>(value.type());
-    switch (type) {
+    const QMetaType type = value.metaType();
+    switch (type.id()) {
     case QMetaType::Bool: {
         bool b = value.toBool();
         writer.append(b);
@@ -299,7 +299,7 @@ void writeValue(QCborStreamWriter &writer, const QVariant &value)
         break;
     }
     default: {
-        qDebug() << "Not able to add:" << value << "of type:" << type;
+        qDebug() << "Not able to add:" << value << "of type:" << type.name();
         qDebug() << "Please add support for this type into generator.";
         break;
     }

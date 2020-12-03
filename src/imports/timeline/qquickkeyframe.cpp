@@ -517,9 +517,10 @@ QVariant QQuickKeyframe::evaluate(QQuickKeyframe *pre, qreal frametime, int user
 
     qreal progress = easing().valueForProgress(offset / duration);
 
-    preValue.convert(userType);
+    const QMetaType targetType(userType);
+    preValue.convert(targetType);
     QVariant convertedValue = value();
-    convertedValue.convert(userType);
+    convertedValue.convert(targetType);
 
     if (!interpolator) {
         if (progress < 1.0)
