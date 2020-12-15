@@ -35,7 +35,7 @@ sourcedirs  += ..
 #exampledirs =
 imagedirs   += images \
 
-depends += qtcore qtdoc qtquick
+depends += qtcore qtdoc qtqml qtquick
 
 tagfile  = qtquicktimeline.tags
 
