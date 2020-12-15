@@ -183,7 +183,7 @@ public:
 
 /*!
     \qmltype Keyframe
-    \inherits QObject
+    \inherits QtObject
     \instantiates QQuickKeyframe
     \inqmlmodule QtQuick.Timeline
     \ingroup qtqmltypes
@@ -257,7 +257,7 @@ QQuickKeyframe::QQuickKeyframe(QQuickKeyframePrivate &dd, QObject *parent)
 
 /*!
     \qmltype KeyframeGroup
-    \inherits QObject
+    \inherits QtObject
     \instantiates QQuickKeyframeGroup
     \inqmlmodule QtQuick.Timeline
     \ingroup qtqmltypes
