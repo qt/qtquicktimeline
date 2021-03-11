@@ -27,8 +27,19 @@
 **
 ****************************************************************************/
 
-#ifndef KEYFRAMEDATAUTILS_H
-#define KEYFRAMEDATAUTILS_H
+#ifndef QQUICKKEYFRAMEDATAUTILS_H
+#define QQUICKKEYFRAMEDATAUTILS_H
+
+//
+//  W A R N I N G
+//  -------------
+//
+// This file is not part of the Qt API.  It exists purely as an
+// implementation detail.  This header file may change from version to
+// version without notice, or even be removed.
+//
+// We mean it.
+//
 
 #include <QtCore/QCborStreamReader>
 #include <QtCore/QCborStreamWriter>
@@ -306,4 +317,4 @@ void writeValue(QCborStreamWriter &writer, const QVariant &value)
     }
 }
 
-#endif // KEYFRAMEDATAUTILS_H
+#endif // QQUICKKEYFRAMEDATAUTILS_H

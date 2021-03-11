@@ -1,6 +1,6 @@
 /****************************************************************************
 **
-** Copyright (C) 2019 The Qt Company Ltd.
+** Copyright (C) 2021 The Qt Company Ltd.
 ** Contact: https://www.qt.io/licensing/
 **
 ** This file is part of Qt Quick Designer Components.
@@ -27,24 +27,23 @@
 **
 ****************************************************************************/
 
-#include <QtQml/qqmlextensionplugin.h>
-#include <QtQuickTimeline/private/qtquicktimelineglobal_p.h>
+#ifndef QTQUICKTIMELINEGLOBAL_H
+#define QTQUICKTIMELINEGLOBAL_H
+
+#include <QtCore/qglobal.h>
 
 QT_BEGIN_NAMESPACE
 
-class QtQuickTimelinePlugin: public QQmlEngineExtensionPlugin
-{
-    Q_OBJECT
-    Q_PLUGIN_METADATA(IID QQmlEngineExtensionInterface_iid)
-
-public:
-    explicit QtQuickTimelinePlugin(QObject *parent = nullptr)  : QQmlEngineExtensionPlugin(parent)
-    {
-        volatile auto registration = &qml_register_types_QtQuick_Timeline;
-        Q_UNUSED(registration);
-    }
-};
+#ifndef QT_STATIC
+#  if defined(QT_BUILD_QUICK_TIMELINE_LIB)
+#    define Q_QUICK_TIMELINE_EXPORT Q_DECL_EXPORT
+#  else
+#    define Q_QUICK_TIMELINE_EXPORT Q_DECL_IMPORT
+#  endif
+#else
+#  define Q_QUICK_TIMELINE_EXPORT
+#endif
 
 QT_END_NAMESPACE
 
-#include "qtquicktimelineplugin.moc"
+#endif // QTQUICKTIMELINEGLOBAL_H

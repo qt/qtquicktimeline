@@ -43,6 +43,7 @@
 
 #include "qquickkeyframe_p.h"
 #include "qquicktimelineanimation_p.h"
+#include "qtquicktimelineglobal_p.h"
 
 #include <QtQml/qqml.h>
 
@@ -50,7 +51,7 @@ QT_BEGIN_NAMESPACE
 
 class QQuickTimelinePrivate;
 
-class QQuickTimeline : public QObject, public QQmlParserStatus
+class Q_QUICK_TIMELINE_PRIVATE_EXPORT QQuickTimeline : public QObject, public QQmlParserStatus
 {
     Q_OBJECT
     Q_DECLARE_PRIVATE(QQuickTimeline)
@@ -63,6 +64,9 @@ class QQuickTimeline : public QObject, public QQmlParserStatus
     Q_PROPERTY(QQmlListProperty<QQuickKeyframeGroup> keyframeGroups READ keyframeGroups)
     Q_PROPERTY(QQmlListProperty<QQuickTimelineAnimation> animations READ animations)
     Q_PROPERTY(bool enabled READ enabled WRITE setEnabled NOTIFY enabledChanged)
+
+    QML_NAMED_ELEMENT(Timeline)
+    QML_ADDED_IN_VERSION(1, 0)
 
     Q_CLASSINFO("DefaultProperty", "keyframeGroups")
 

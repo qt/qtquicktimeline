@@ -30,7 +30,7 @@
 #include "qquickkeyframe_p.h"
 
 #include "qquicktimeline_p.h"
-#include "keyframedatautils_p.h"
+#include "qquickkeyframedatautils_p.h"
 
 #include <QtCore/qdebug.h>
 #include <QtCore/QVariantAnimation>

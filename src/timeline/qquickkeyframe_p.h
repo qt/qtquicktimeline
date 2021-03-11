@@ -41,6 +41,8 @@
 // We mean it.
 //
 
+#include "qtquicktimelineglobal_p.h"
+
 #include <QtCore/QObject>
 #include <QtCore/qeasingcurve.h>
 
@@ -52,7 +54,7 @@ class QQuickKeyframeGroupPrivate;
 class QQuickKeyframePrivate;
 class QQuickNumberKeyframePrivate;
 
-class QQuickKeyframe : public QObject
+class Q_QUICK_TIMELINE_PRIVATE_EXPORT QQuickKeyframe : public QObject
 {
     Q_OBJECT
     Q_DECLARE_PRIVATE(QQuickKeyframe)
@@ -60,6 +62,9 @@ class QQuickKeyframe : public QObject
     Q_PROPERTY(qreal frame READ frame WRITE setFrame NOTIFY frameChanged)
     Q_PROPERTY(QEasingCurve easing READ easing WRITE setEasing NOTIFY easingCurveChanged)
     Q_PROPERTY(QVariant value READ value WRITE setValue NOTIFY valueChanged)
+
+    QML_NAMED_ELEMENT(Keyframe)
+    QML_ADDED_IN_VERSION(1, 0)
 
 public:
     explicit QQuickKeyframe(QObject *parent = nullptr);
@@ -85,7 +90,7 @@ Q_SIGNALS:
     void valueChanged();
 };
 
-class QQuickKeyframeGroup : public QObject, public QQmlParserStatus
+class Q_QUICK_TIMELINE_PRIVATE_EXPORT QQuickKeyframeGroup : public QObject, public QQmlParserStatus
 {
     Q_OBJECT
     Q_DECLARE_PRIVATE(QQuickKeyframeGroup)
@@ -95,7 +100,10 @@ class QQuickKeyframeGroup : public QObject, public QQmlParserStatus
     Q_PROPERTY(QObject *target READ target WRITE setTargetObject NOTIFY targetChanged)
     Q_PROPERTY(QString property READ property WRITE setProperty NOTIFY propertyChanged)
     Q_PROPERTY(QQmlListProperty<QQuickKeyframe> keyframes READ keyframes)
-    Q_PROPERTY(QUrl keyframeSource READ keyframeSource WRITE setKeyframeSource NOTIFY keyframeSourceChanged REVISION 1)
+    Q_PROPERTY(QUrl keyframeSource READ keyframeSource WRITE setKeyframeSource NOTIFY keyframeSourceChanged REVISION(1, 1))
+
+    QML_NAMED_ELEMENT(KeyframeGroup)
+    QML_ADDED_IN_VERSION(1, 0)
 
     Q_CLASSINFO("DefaultProperty", "keyframes")
 
@@ -110,8 +118,8 @@ public:
     QString property() const;
     void setProperty(const QString &);
 
-    Q_REVISION(1) QUrl keyframeSource() const;
-    Q_REVISION(1) void setKeyframeSource(const QUrl &source);
+    Q_REVISION(1, 1) QUrl keyframeSource() const;
+    Q_REVISION(1, 1) void setKeyframeSource(const QUrl &source);
 
     QVariant evaluate(qreal frame) const;
 
@@ -132,7 +140,7 @@ protected:
 Q_SIGNALS:
     void targetChanged();
     void propertyChanged();
-    Q_REVISION(1) void keyframeSourceChanged();
+    Q_REVISION(1, 1) void keyframeSourceChanged();
 };
 
 QT_END_NAMESPACE

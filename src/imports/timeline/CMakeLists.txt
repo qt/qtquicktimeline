@@ -6,30 +6,21 @@
 
 qt_internal_add_qml_module(qtquicktimelineplugin
     URI "QtQuick.Timeline"
-    VERSION "1.0"
+    VERSION "${CMAKE_PROJECT_VERSION}"
     DESIGNER_SUPPORTED
     CLASSNAME QtQuickTimelinePlugin
     SKIP_TYPE_REGISTRATION
+    PLUGIN_OPTIONAL
+    DEPENDENCIES
+        QtQuick
     SOURCES
-        keyframedatautils_p.h
-        qquickkeyframe.cpp qquickkeyframe_p.h
-        qquicktimeline.cpp qquicktimeline_p.h
-        qquicktimelineanimation.cpp qquicktimelineanimation_p.h
         qtquicktimelineplugin.cpp
     DEFINES
         QT_NO_CAST_FROM_ASCII
         QT_NO_CAST_TO_ASCII
     LIBRARIES
-        Qt::CorePrivate
-        Qt::GuiPrivate
-        Qt::QmlPrivate
-        Qt::QuickPrivate
-    PUBLIC_LIBRARIES
-        Qt::Core
-        Qt::CorePrivate
-        Qt::Gui
         Qt::Qml
-        Qt::Quick
+        Qt::QuickTimelinePrivate
 )
 
 #### Keys ignored in scope 1:.:.:timeline.pro:<TRUE>:
