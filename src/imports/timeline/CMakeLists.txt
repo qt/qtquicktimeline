@@ -6,7 +6,7 @@
 
 qt_internal_add_qml_module(qtquicktimelineplugin
     URI "QtQuick.Timeline"
-    VERSION "${CMAKE_PROJECT_VERSION}"
+    VERSION "${PROJECT_VERSION}"
     DESIGNER_SUPPORTED
     CLASSNAME QtQuickTimelinePlugin
     SKIP_TYPE_REGISTRATION
