@@ -1,5 +1,4 @@
 qt_internal_add_module(QuickTimeline
-    GENERATE_METATYPES
     SOURCES
         qquickkeyframedatautils_p.h
         qquickkeyframe.cpp qquickkeyframe_p.h
