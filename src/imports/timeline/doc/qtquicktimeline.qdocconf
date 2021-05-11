@@ -3,6 +3,7 @@ include($QT_INSTALL_DOCS/global/qt-module-defaults.qdocconf)
 project                 = QtQuickTimeline
 description             = Qt Quick Timeline Reference Documentation
 version                 = $QT_VERSION
+buildversion            = Qt Quick Timeline | Commercial or GPLv3
 
 examplesinstallpath = qtquicktimeline
 
