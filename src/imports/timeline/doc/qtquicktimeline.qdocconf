@@ -31,7 +31,8 @@ qhp.QtQuickTimeline.subprojects.qmltypes.sortPages  = true
 #qhp.QtQuickTimeline.subprojects.examples.sortPages     = true
 
 headerdirs  += ..
-sourcedirs  += ..
+sourcedirs  += .. \
+                ../../../timeline
 #exampledirs =
 imagedirs   += images \
 
