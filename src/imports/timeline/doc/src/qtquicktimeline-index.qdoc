@@ -41,7 +41,7 @@
     statement in your \c{.qml} file:
 
     \code
-    import QtQuick.Timeline 1.0
+    import QtQuick.Timeline
     \endcode
 
     \section1 Articles and Guides
