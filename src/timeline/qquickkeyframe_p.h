@@ -121,6 +121,9 @@ public:
     Q_REVISION(1, 1) QUrl keyframeSource() const;
     Q_REVISION(1, 1) void setKeyframeSource(const QUrl &source);
 
+    const QByteArray keyframeData() const;
+    void setKeyframeData(const QByteArray &data);
+
     QVariant evaluate(qreal frame) const;
 
     void setProperty(qreal frame);

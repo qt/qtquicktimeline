@@ -59,12 +59,13 @@ public:
     QObject *target = nullptr;
     QString propertyName;
     QUrl keyframeSource;
+    QByteArray keyframeData;
     bool componentComplete = false;
     int userType = -1;
 
 protected:
     void setupKeyframes();
-    void loadKeyframes();
+    void loadKeyframes(bool fromBinary = false);
 
     static void append_keyframe(QQmlListProperty<QQuickKeyframe> *list, QQuickKeyframe *a);
     static qsizetype keyframe_count(QQmlListProperty<QQuickKeyframe> *list);
@@ -85,27 +86,32 @@ void QQuickKeyframeGroupPrivate::setupKeyframes()
     });
 }
 
-void QQuickKeyframeGroupPrivate::loadKeyframes()
+void QQuickKeyframeGroupPrivate::loadKeyframes(bool fromBinary)
 {
     Q_Q(QQuickKeyframeGroup);
 
-    // Resolve URL similar to QQuickImage source
-    QUrl loadUrl = keyframeSource;
-    QQmlContext *context = qmlContext(q);
-    if (context)
-        loadUrl = context->resolvedUrl(keyframeSource);
-    QString dataFilePath = QQmlFile::urlToLocalFileOrQrc(loadUrl);
+    QCborStreamReader reader;
+    QFile dataFile;
+    if (!fromBinary) {
+        // Resolve URL similar to QQuickImage source
+        QUrl loadUrl = keyframeSource;
+        QQmlContext *context = qmlContext(q);
+        if (context)
+            loadUrl = context->resolvedUrl(keyframeSource);
+        QString dataFilePath = QQmlFile::urlToLocalFileOrQrc(loadUrl);
 
-    QFile dataFile(dataFilePath);
-    if (!dataFile.open(QIODevice::ReadOnly)) {
-        // Invalid file
-        qWarning() << "Unable to open keyframeSource:" << dataFilePath;
-        qDeleteAll(keyframes);
-        keyframes.clear();
-        return;
+        dataFile.setFileName(dataFilePath);
+        if (!dataFile.open(QIODevice::ReadOnly)) {
+            // Invalid file
+            qWarning() << "Unable to open keyframeSource:" << dataFilePath;
+            qDeleteAll(keyframes);
+            keyframes.clear();
+            return;
+        }
+        reader.setDevice(&dataFile);
+    } else {
+        reader.addData(keyframeData);
     }
-
-    QCborStreamReader reader(&dataFile);
 
     // Check that file is standard keyframes CBOR and get the version
     int version = readKeyframesHeader(reader);
@@ -364,14 +370,42 @@ void QQuickKeyframeGroup::setKeyframeSource(const QUrl &source)
     if (d->keyframeSource == source)
         return;
 
-    if (!d->keyframeSource.isEmpty()) {
+    if (d->keyframes.count() > 0) {
         // Remove possible previously loaded keyframes
         qDeleteAll(d->keyframes);
         d->keyframes.clear();
+        d->keyframeData.clear();
     }
 
     d->keyframeSource = source;
     d->loadKeyframes();
+    d->setupKeyframes();
+    reset();
+
+    emit keyframeSourceChanged();
+}
+
+const QByteArray QQuickKeyframeGroup::keyframeData() const
+{
+    Q_D(const QQuickKeyframeGroup);
+    return d->keyframeData;
+}
+
+void QQuickKeyframeGroup::setKeyframeData(const QByteArray &data)
+{
+    Q_D(QQuickKeyframeGroup);
+    if (d->keyframeData == data)
+        return;
+
+    if (d->keyframes.count() > 0) {
+        // Remove possible previously loaded keyframes
+        qDeleteAll(d->keyframes);
+        d->keyframes.clear();
+        d->keyframeSource.clear();
+    }
+
+    d->keyframeData = data;
+    d->loadKeyframes(true);
     d->setupKeyframes();
     reset();
 
