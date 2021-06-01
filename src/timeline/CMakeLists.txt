@@ -1,4 +1,11 @@
-qt_internal_add_module(QuickTimeline
+qt_internal_add_qml_module(QuickTimeline
+    URI "QtQuick.Timeline"
+    VERSION "${PROJECT_VERSION}"
+    DESIGNER_SUPPORTED
+    CLASS_NAME QtQuickTimelinePlugin
+    PLUGIN_TARGET qtquicktimelineplugin
+    DEPENDENCIES
+        QtQuick
     SOURCES
         qquickkeyframedatautils_p.h
         qquickkeyframe.cpp qquickkeyframe_p.h
@@ -15,12 +22,6 @@ qt_internal_add_module(QuickTimeline
         Qt::QuickPrivate
 )
 
-set_target_properties(QuickTimeline PROPERTIES
-    QT_QML_MODULE_INSTALL_QMLTYPES TRUE
-    QT_QML_MODULE_VERSION "${PROJECT_VERSION}"
-    QT_QML_MODULE_URI QtQuick.Timeline
-    QT_QMLTYPES_FILENAME plugins.qmltypes
-    QT_QML_MODULE_INSTALL_DIR "${INSTALL_QMLDIR}/QtQuick/Timeline"
+qt_internal_add_docs(QuickTimeline
+    doc/qtquicktimeline.qdocconf
 )
-
-qt6_qml_type_registration(QuickTimeline)
