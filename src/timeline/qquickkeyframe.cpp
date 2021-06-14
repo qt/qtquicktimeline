@@ -76,6 +76,7 @@ protected:
     QList<QQuickKeyframe *> sortedKeyframes;
 
     QVariant originalValue;
+    QVariant lastValue;
 };
 
 void QQuickKeyframeGroupPrivate::setupKeyframes()
@@ -438,10 +439,14 @@ QVariant QQuickKeyframeGroup::evaluate(qreal frame) const
 
 void QQuickKeyframeGroup::setProperty(qreal frame)
 {
+    Q_D(QQuickKeyframeGroup);
+
     if (target()) {
         QQmlProperty qmlProperty(target(), property());
 
-        if (!qmlProperty.write(evaluate(frame)))
+        d->lastValue = evaluate(frame);
+
+        if (!qmlProperty.write(d->lastValue))
             qWarning() << "Cannot set property" << property();
     }
 }
@@ -465,7 +470,9 @@ void QQuickKeyframeGroup::init()
 void QQuickKeyframeGroup::resetDefaultValue()
 {
     Q_D(QQuickKeyframeGroup);
-    QQmlProperty::write(target(), property(), d->originalValue);
+
+    if (QQmlProperty::read(target(), property()) == d->lastValue)
+        QQmlProperty::write(target(), property(), d->originalValue);
 }
 
 void QQuickKeyframeGroup::reset()
