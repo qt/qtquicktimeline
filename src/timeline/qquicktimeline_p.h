@@ -51,7 +51,7 @@ QT_BEGIN_NAMESPACE
 
 class QQuickTimelinePrivate;
 
-class Q_QUICK_TIMELINE_PRIVATE_EXPORT QQuickTimeline : public QObject, public QQmlParserStatus
+class Q_QUICKTIMELINE_PRIVATE_EXPORT QQuickTimeline : public QObject, public QQmlParserStatus
 {
     Q_OBJECT
     Q_DECLARE_PRIVATE(QQuickTimeline)

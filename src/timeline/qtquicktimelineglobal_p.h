@@ -42,11 +42,6 @@
 //
 
 #include "qtquicktimelineglobal.h"
-
-QT_BEGIN_NAMESPACE
-
-#define Q_QUICK_TIMELINE_PRIVATE_EXPORT Q_QUICK_TIMELINE_EXPORT
-
-QT_END_NAMESPACE
+#include <QtQuickTimeline/private/qtquicktimelineexports_p.h>
 
 #endif // QTQUICKTIMELINEGLOBAL_P_H

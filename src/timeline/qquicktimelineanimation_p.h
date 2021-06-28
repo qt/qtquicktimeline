@@ -47,7 +47,7 @@
 
 QT_BEGIN_NAMESPACE
 
-class Q_QUICK_TIMELINE_PRIVATE_EXPORT QQuickTimelineAnimation : public QQuickNumberAnimation
+class Q_QUICKTIMELINE_PRIVATE_EXPORT QQuickTimelineAnimation : public QQuickNumberAnimation
 {
     Q_OBJECT
 
