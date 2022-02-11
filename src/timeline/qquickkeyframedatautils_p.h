@@ -52,6 +52,7 @@
 #include <QtGui/QVector4D>
 #include <QtGui/QQuaternion>
 #include <QtGui/QColor>
+#include <QtCore/private/qglobal_p.h>
 
 // This file contains useful methods to read & write keyframes
 // CBOR binary files and understand the format.
