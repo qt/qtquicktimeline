@@ -35,19 +35,20 @@
     parameterization. This module is directly supported by Qt Design Studio and
     Qt Quick Designer, with a timeline editor to create keyframe-based animations.
 
-    \section1 Getting Started
+    \section1 Using the Module
 
-    To import the QML types into your application, use the following import
-    statement in your \c{.qml} file:
-
-    \code
-    import QtQuick.Timeline
-    \endcode
+    \include {module-use.qdocinc} {using the qml api} {QtQuick.Timeline}
 
     \section1 Articles and Guides
 
     \list
         \li \l{Qt Quick Timeline Overview}{Overview}
+    \endlist
+
+    \section1 Reference
+
+    \list
+         \li \l{Qt Quick Timeline QML Types}{QML Types}
     \endlist
 
     \section1 Module Evolution
@@ -59,11 +60,4 @@
     Qt Quick Timeline is available under commercial licenses from \l{The Qt Company}.
     In addition, it is available under the \l{GNU General Public License, version 3}.
     See \l{Qt Licensing} for further details.
-
-    \section1 Reference
-
-    \list
-         \li \l{Qt Quick Timeline QML Types}{QML Types}
-    \endlist
-
 */
