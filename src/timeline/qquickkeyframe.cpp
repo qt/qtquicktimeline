@@ -145,10 +145,8 @@ QQuickKeyframe* QQuickKeyframeGroupPrivate::keyframe_at(QQmlListProperty<QQuickK
 void QQuickKeyframeGroupPrivate::clear_keyframes(QQmlListProperty<QQuickKeyframe> *list)
 {
     auto q = static_cast<QQuickKeyframeGroup *>(list->object);
-    while (q->d_func()->keyframes.count()) {
-        QQuickKeyframe *firstKeyframe = q->d_func()->keyframes.at(0);
-        q->d_func()->keyframes.removeAll(firstKeyframe);
-    }
+    q->d_func()->keyframes.clear();
+    q->d_func()->setupKeyframes();
 }
 
 class QQuickKeyframePrivate : public QObjectPrivate
