@@ -19,7 +19,7 @@ qt_internal_add_test(tst_qtquicktimeline
         tst_qtquicktimeline.cpp
     DEFINES
         SRCDIR=\\\"${CMAKE_CURRENT_SOURCE_DIR}/\\\"
-    PUBLIC_LIBRARIES
+    LIBRARIES
         Qt::Gui
         Qt::Qml
         Qt::QmlPrivate
