@@ -400,7 +400,7 @@ QVariant QQuickKeyframeGroup::evaluate(qreal frame) const
 
      QQuickKeyframe *lastFrame = &dummy;
 
-    for (auto keyFrame :  qAsConst(d->sortedKeyframes)) {
+    for (auto keyFrame :  std::as_const(d->sortedKeyframes)) {
         if (qFuzzyCompare(frame, keyFrame->frame()) || frame < keyFrame->frame())
             return keyFrame->evaluate(lastFrame, frame, d->userType);
         lastFrame = keyFrame;
