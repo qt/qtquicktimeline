@@ -15,6 +15,7 @@ project(QtQuickTimeline # special case
 
 find_package(Qt6 ${PROJECT_VERSION} CONFIG REQUIRED COMPONENTS BuildInternals Core) # special case
 find_package(Qt6 ${PROJECT_VERSION} QUIET CONFIG OPTIONAL_COMPONENTS Quick) # special case
+qt_internal_project_setup()
 
 if(NOT TARGET Qt::Quick)
     message(NOTICE "Skipping the build as the condition \"TARGET Qt::Quick\" is not met.")
