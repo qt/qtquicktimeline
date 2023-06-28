@@ -1,0 +1,43 @@
+include($QT_INSTALL_DOCS/global/qt-module-defaults.qdocconf)
+
+project                 = QtQuickTimelineBlendTrees
+description             = Qt Quick Timeline Blend Trees Reference Documentation
+version                 = $QT_VERSION
+buildversion            = Qt Quick Timeline Blend Trees | Commercial or GPLv3
+
+examplesinstallpath = qtquicktimelineblendtrees
+
+qhp.projects            = QtQuickTimelineBlendTrees
+
+qhp.QtQuickTimelineBlendTrees.file                = qtquicktimelineblendtrees.qhp
+qhp.QtQuickTimelineBlendTrees.namespace           = org.qt-project.qtquicktimelineblendtrees.$QT_VERSION_TAG
+qhp.QtQuickTimelineBlendTrees.virtualFolder       = qtquicktimelineblendtrees
+qhp.QtQuickTimelineBlendTrees.indexTitle          = Qt Quick Timeline Blend Trees
+qhp.QtQuickTimelineBlendTrees.indexRoot           =
+
+qhp.QtQuickTimelineBlendTrees.subprojects         = qmltypes
+
+qhp.QtQuickTimelineBlendTrees.subprojects.qmltypes.title      = QML Types
+qhp.QtQuickTimelineBlendTrees.subprojects.qmltypes.indexTitle = Qt Quick Timeline Blend Trees QML Types
+qhp.QtQuickTimelineBlendTrees.subprojects.qmltypes.selectors  = qmlclass
+qhp.QtQuickTimelineBlendTrees.subprojects.qmltypes.sortPages  = true
+
+#qhp.QtQuickTimelineBlendTrees.subprojects.examples.title         = Examples
+#qhp.QtQuickTimelineBlendTrees.subprojects.examples.indexTitle    = Qt Qt Quick Timeline Blend Trees Examples
+#qhp.QtQuickTimelineBlendTrees.subprojects.examples.selectors     = fake:example
+#qhp.QtQuickTimelineBlendTrees.subprojects.examples.sortPages     = true
+
+headerdirs  += ..
+sourcedirs  += ..
+#exampledirs =
+imagedirs   += images \
+
+depends += qtcore qtdoc qtqml qtquick qtquicktimeline
+
+tagfile  = qtquicktimelineblendtrees.tags
+
+#add generic thumbnail images for example documentation that does not have an image.
+#manifestmeta.thumbnail.names  +=
+
+navigation.landingpage = "Qt Quick Timeline Blend Trees"
+navigation.qmltypespage = "Qt Quick Timeline Blend Trees QML Types"
