@@ -17,6 +17,7 @@ qt_internal_add_qml_module(QuickTimeline
         qtquicktimelineglobal.h qtquicktimelineglobal_p.h
     DEFINES
         QT_BUILD_QUICK_TIMELINE_LIB
+        QT_NO_CONTEXTLESS_CONNECT
     PUBLIC_LIBRARIES
         Qt::Core
         Qt::Qml
