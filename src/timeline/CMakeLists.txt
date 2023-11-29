@@ -23,7 +23,6 @@ qt_internal_add_qml_module(QuickTimeline
         Qt::Quick
     LIBRARIES
         Qt::QuickPrivate
-    GENERATE_CPP_EXPORTS
 )
 
 qt_internal_add_docs(QuickTimeline
