@@ -22,7 +22,7 @@
 
 QT_BEGIN_NAMESPACE
 
-class QBlendAnimationNode : public QBlendTreeNode
+class Q_QUICKTIMELINEBLENDTREES_EXPORT QBlendAnimationNode : public QBlendTreeNode
 {
     Q_OBJECT
     Q_PROPERTY(QBlendTreeNode *source1 READ source1 WRITE setSource1 NOTIFY source1Changed FINAL)

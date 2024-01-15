@@ -15,12 +15,14 @@
 // We mean it.
 //
 
+#include "qtquicktimelineblendtreesglobal.h"
+
 #include <QObject>
 #include <QtQml>
 
 QT_BEGIN_NAMESPACE
 
-class QBlendTreeNode : public QObject
+class Q_QUICKTIMELINEBLENDTREES_EXPORT QBlendTreeNode : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(bool outputEnabled READ outputEnabled WRITE setOutputEnabled NOTIFY outputEnabledChanged FINAL)
