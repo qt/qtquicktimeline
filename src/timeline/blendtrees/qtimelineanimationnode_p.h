@@ -23,7 +23,7 @@
 
 QT_BEGIN_NAMESPACE
 
-class QTimelineAnimationNode : public QBlendTreeNode
+class Q_QUICKTIMELINEBLENDTREES_EXPORT QTimelineAnimationNode : public QBlendTreeNode
 {
     Q_OBJECT
     Q_PROPERTY(QQuickTimelineAnimation *animation READ animation WRITE setAnimation NOTIFY animationChanged FINAL)
