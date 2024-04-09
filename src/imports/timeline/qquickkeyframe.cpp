@@ -39,6 +39,7 @@
 #include <QtQml/QQmlProperty>
 
 #include <private/qvariantanimation_p.h>
+#include <private/qqmlproperty_p.h>
 
 #include <algorithm>
 
@@ -49,6 +50,7 @@ class QQuickKeyframeGroupPrivate : public QObjectPrivate
     Q_DECLARE_PUBLIC(QQuickKeyframeGroup)
 public:
     QQuickKeyframeGroupPrivate() = default;
+    ~QQuickKeyframeGroupPrivate();
 
     QObject *target = nullptr;
     QString propertyName;
@@ -68,7 +70,16 @@ protected:
 
     QVariant originalValue;
     QVariant lastValue;
+
+private:
+    QQmlAbstractBinding *originalBinding = nullptr;
 };
+
+QQuickKeyframeGroupPrivate::~QQuickKeyframeGroupPrivate()
+{
+    if (originalBinding && (originalBinding->ref.deref() == 0))
+        delete originalBinding;
+}
 
 void QQuickKeyframeGroupPrivate::setupKeyframes()
 {
@@ -316,8 +327,16 @@ void QQuickKeyframeGroup::init()
 {
     Q_D(QQuickKeyframeGroup);
     if (target()) {
+        QQmlProperty qmlProperty(target(), property());
         d->originalValue = QQmlProperty::read(target(), property());
-        d->userType = QQmlProperty(target(), property()).property().userType();
+        d->userType = qmlProperty.property().userType();
+        if (d->originalBinding)
+            d->originalBinding->ref.deref();
+        d->originalBinding = QQmlPropertyPrivate::binding(qmlProperty);
+        if (d->originalBinding) {
+            d->originalBinding->ref.ref();
+        }
+        d->originalValue = QQmlProperty::read(target(), property());
         if (property().contains(QLatin1Char('.'))) {
             if (d->userType == QMetaType::QVector2D
                     || d->userType == QMetaType::QVector3D
@@ -331,8 +350,16 @@ void QQuickKeyframeGroup::init()
 void QQuickKeyframeGroup::resetDefaultValue()
 {
     Q_D(QQuickKeyframeGroup);
-    if (QQmlProperty::read(target(), property()) == d->lastValue)
-        QQmlProperty::write(target(), property(), d->originalValue);
+    if (QQmlProperty::read(target(), property()) == d->lastValue) {
+        if (d->originalBinding) {
+            QQmlProperty qmlProperty(target(), property());
+            QQmlPropertyPrivate::setBinding(qmlProperty, d->originalBinding);
+            d->originalBinding->ref.deref();
+            d->originalBinding = nullptr;
+        } else {
+            QQmlProperty::write(target(), property(), d->originalValue);
+        }
+    }
 }
 
 void QQuickKeyframeGroup::reset()
