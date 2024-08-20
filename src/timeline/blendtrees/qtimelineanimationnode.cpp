@@ -8,7 +8,7 @@ QT_BEGIN_NAMESPACE
 /*!
     \qmltype TimelineAnimationNode
     \inherits QBlendTreeNode
-    \instantiates QTimelineAnimationNode
+    \nativetype QTimelineAnimationNode
     \inqmlmodule QtQuick.Timeline.BlendTrees
     \ingroup qtqmltypes
 
