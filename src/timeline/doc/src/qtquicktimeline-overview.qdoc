@@ -18,8 +18,7 @@
     the color and scale properties of the item at keyframes to make it appear
     to move closer or farther away.
 
-    Qt Design Studio and Qt Quick Designer contain a timeline editor for
-    creating keyframe based animations.
+    \QDS contains a timeline editor for creating keyframe based animations.
 
     \image timeline-editor.png
 
@@ -28,7 +27,7 @@
     can be a useful way of organizing your UI logic. Transitions are objects
     you can associate with an item to define how its properties will animate
     when they change due to a state change. You can bind timeline animations
-    to states in Qt Design Studio and Qt Quick Designer.
+    to states in \QDS.
 
     \image timeline-settings.png
 */
