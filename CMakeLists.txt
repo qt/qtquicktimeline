@@ -21,4 +21,11 @@ if(NOT TARGET Qt::Quick)
     message(NOTICE "Skipping the build as the condition \"TARGET Qt::Quick\" is not met.")
     return()
 endif()
+
+if(NOT QT_FEATURE_cborstreamreader OR NOT QT_FEATURE_cborstreamwriter)
+    message(NOTICE "Skipping the build. QtQuickTimeline requires both 'cborstreamreader'"
+        " and 'cborstreamwriter' features enabled in the Qt::Core module")
+    return()
+endif()
+
 qt_build_repo()
