@@ -20,7 +20,7 @@
 
     \QDS contains a timeline editor for creating keyframe based animations.
 
-    \image timeline-editor.png
+    \image {timeline-editor.png} {Timeline Editor in Qt Design Studio with keyframes}
 
     Qt Quick allows you to declare various UI states in \l State objects.
     These states are comprised of property changes from a base state, and
@@ -29,5 +29,5 @@
     when they change due to a state change. You can bind timeline animations
     to states in \QDS.
 
-    \image timeline-settings.png
+    \image {timeline-settings.png} {Timeline settings panel in Qt Design Studio}
 */
