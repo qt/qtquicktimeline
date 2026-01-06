@@ -274,7 +274,7 @@ bool QQuickKeyframeGroupPrivate::loadKeyframes(bool fromBinary)
     // Start keyframes array
     QCborArray kfArray = kfSrcCborArray.at(3).toArray();
     const auto arraySize = kfArray.size();
-    if (arraySize % frameSize == 0)
+    if (arraySize % frameSize != 0)
         return error(QStringLiteral("invalid keyframe array"));
 
     bool validKeyframeData = true;
