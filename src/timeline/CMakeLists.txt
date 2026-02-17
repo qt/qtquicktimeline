@@ -8,7 +8,7 @@ qt_internal_add_qml_module(QuickTimeline
     CLASS_NAME QtQuickTimelinePlugin
     PLUGIN_TARGET qtquicktimelineplugin
     DEPENDENCIES
-        QtQuick
+        QtQuick/auto
     SOURCES
         qquickkeyframedatautils_p.h
         qquickkeyframe.cpp qquickkeyframe_p.h
