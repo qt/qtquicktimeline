@@ -8,7 +8,8 @@ qt_internal_add_qml_module(QuickTimelineBlendTrees
     CLASS_NAME QtQuickTimelineBlendTreesPlugin
     PLUGIN_TARGET qtquicktimelineblendtreesplugin
     DEPENDENCIES
-        QtQuick.Timeline
+        QtQuick/auto
+        QtQuick.Timeline/auto
     SOURCES
         qblendtreenode.cpp qblendtreenode_p.h
         qtimelineanimationnode.cpp qtimelineanimationnode_p.h
